@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {MapStackScreen} from '../map/MapStackScreen';
-import {QuestStackScreen} from '../quest/QuestStackScreen';
-import {ChallengeStackScreen} from '../challenge/ChallengeStackScreen';
-import {LandmarkStackScreen} from '../landmark/LandmarkStackScreen';
-import {ProfileStackScreen} from '../profile/ProfileStackScreen';
+import {MapStackScreen} from 'navigation/stacks/MapStackScreen';
+import {QuestStackScreen} from 'navigation/stacks/QuestStackScreen';
+import {ChallengeStackScreen} from 'navigation/stacks/ChallengeStackScreen';
+import {LandmarkStackScreen} from 'navigation/stacks/LandmarkStackScreen';
+import {ProfileStackScreen} from 'navigation/stacks/ProfileStackScreen';
 import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button, TextInput, View} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../../types/RootStackParamList';
+import {RootStackParamList} from '../types/RootStackParamList';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -12,7 +12,7 @@ type ForgotPasswordT = {
   navigation: ProfileScreenNavigationProp;
 };
 
-const ForgotPassword = ({navigation}: ForgotPasswordT) => {
+const ForgotPasswordScreen = ({navigation}: ForgotPasswordT) => {
 
   return (
     <View>
@@ -22,4 +22,4 @@ const ForgotPassword = ({navigation}: ForgotPasswordT) => {
   );
 };
 
-export default ForgotPassword;
+export default ForgotPasswordScreen;

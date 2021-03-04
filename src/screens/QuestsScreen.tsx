@@ -12,7 +12,7 @@ import {
   Container,
   Content,
 } from 'native-base';
-import QuestCard from './QuestCard';
+import QuestCard from 'components/QuestCard';
 import firestore from '@react-native-firebase/firestore';
 import {useEffect, useState} from 'react';
 

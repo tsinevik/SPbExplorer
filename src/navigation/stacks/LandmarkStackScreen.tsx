@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {GroupsScreen} from './GroupsScreen';
-import {LandmarksScreen} from './LandmarksScreen';
-import {LandmarkDetailsScreen} from './LandmarkDetailsScreen';
+import {GroupsScreen} from 'screens/GroupsScreen';
+import {LandmarksScreen} from 'screens/LandmarksScreen';
+import {LandmarkDetailsScreen} from 'screens/LandmarkDetailsScreen';
 
 const LandmarkStack = createStackNavigator();
 

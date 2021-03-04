@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {MapScreen} from './MapScreen';
+import {MapScreen} from 'screens/MapScreen';
 
 const MapStack = createStackNavigator();
 

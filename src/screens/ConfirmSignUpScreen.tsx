@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {Button, Text, TextInput, View} from 'react-native';
-import {RootStackParamList} from '../../types/RootStackParamList';
+import {RootStackParamList} from '../types/RootStackParamList';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -15,7 +15,7 @@ type ConfirmSignUpT = {
   route: ProfileScreenRouteProp;
 };
 
-const ConfirmSignUp = ({route, navigation}: ConfirmSignUpT) => {
+const ConfirmSignUpScreen = ({route, navigation}: ConfirmSignUpT) => {
   return (
     <View>
       <TextInput placeholder="Code here" onChangeText={setCode} />
@@ -25,4 +25,4 @@ const ConfirmSignUp = ({route, navigation}: ConfirmSignUpT) => {
   );
 };
 
-export {ConfirmSignUp};
+export {ConfirmSignUpScreen};

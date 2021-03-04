@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {QuestsScreen} from './QuestsScreen';
-import {QuestDetailsScreen} from './QuestDetailsScreen';
+import {QuestsScreen} from 'screens/QuestsScreen';
+import {QuestDetailsScreen} from 'screens/QuestDetailsScreen';
 
 const QuestStack = createStackNavigator();
 

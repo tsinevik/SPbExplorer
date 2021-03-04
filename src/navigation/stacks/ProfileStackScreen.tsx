@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {ProfileScreen} from './ProfileScreen';
+import {ProfileScreen} from 'screens/ProfileScreen';
 
 const ProfileStack = createStackNavigator();
 

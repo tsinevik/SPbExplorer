@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Button, TextInput, View} from 'react-native';
 import * as Keychain from 'react-native-keychain';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../../types/RootStackParamList';
+import {RootStackParamList} from '../types/RootStackParamList';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -13,7 +13,7 @@ type ForgotPasswordSubmitT = {
   navigation: ProfileScreenNavigationProp;
 };
 
-const ForgotPasswordSubmit = ({navigation}: ForgotPasswordSubmitT) => {
+const ForgotPasswordSubmitScreen = ({navigation}: ForgotPasswordSubmitT) => {
 
   return (
     <View>
@@ -31,4 +31,4 @@ const ForgotPasswordSubmit = ({navigation}: ForgotPasswordSubmitT) => {
   );
 };
 
-export default ForgotPasswordSubmit;
+export default ForgotPasswordSubmitScreen;

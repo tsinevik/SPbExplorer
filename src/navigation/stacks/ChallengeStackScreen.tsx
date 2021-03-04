@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {ChallengeScreen} from './ChallengeScreen';
+import {ChallengeScreen} from 'screens/ChallengeScreen';
 
 const ChallengeStack = createStackNavigator();
 

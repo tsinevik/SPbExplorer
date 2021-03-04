@@ -26,11 +26,10 @@ export const MapScreen = ({navigation}) => {
 
   return (
     <WebView
-      source={{uri: 'http://192.168.1.216:3000'}}
+      source={{uri: 'http://192.168.1.127:3000'}}
       // source={{uri: 'https://spbexplorer-5efb8.web.app'}}
       // injectedJavaScript={firstRun}
       injectedJavaScriptBeforeContentLoaded={firstRun}
     />
-    // <WebView source={require('../../map/index.html')} />
   );
 };

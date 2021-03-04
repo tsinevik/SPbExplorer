@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Button, Text, View} from 'react-native';
 import {Container, Content} from 'native-base';
-import {LandmarkGroupCard} from './LandmarkGroupCard';
+import {LandmarkGroupCard} from 'components/LandmarkGroupCard';
 
 const groupsProps = {
   title: 'Мосты',

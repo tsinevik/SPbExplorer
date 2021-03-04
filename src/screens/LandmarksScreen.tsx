@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container, Content} from "native-base";
-import {LandmarkCard} from "./LandmarkCard";
+import {LandmarkCard} from "components/LandmarkCard";
 
 const landmarkProps = {
   title: 'Дворцовый мост',
