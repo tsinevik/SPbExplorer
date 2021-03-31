@@ -1,8 +1,8 @@
-import React, {useContext, useState} from 'react';
-import {Button, Text, TextInput, View} from 'react-native';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../types/RootStackParamList';
-import {AuthContext} from 'navigation/AuthProvider';
+import React, { useContext, useState } from 'react';
+import { Button, Text, TextInput, View } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../types/RootStackParamList';
+import { AuthContext } from 'navigation/AuthProvider';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -13,11 +13,11 @@ type SignInT = {
   navigation: ProfileScreenNavigationProp;
 };
 
-const SignInScreen = ({navigation}: SignInT) => {
+const SignInScreen = ({ navigation }: SignInT) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const {login} = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
   return (
     <View>

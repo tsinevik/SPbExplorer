@@ -10,7 +10,7 @@ import {
   Right,
 } from 'native-base';
 import Swiper from 'react-native-swiper';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const QuestDetailsScreen = ({route}) => {
+export const QuestDetailsScreen = ({ route }) => {
   const props = route.params;
   return (
     <Container>

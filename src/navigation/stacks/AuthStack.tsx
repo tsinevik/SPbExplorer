@@ -1,10 +1,10 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import SignUpScreen from 'screens/SignUpScreen';
-import SignInScreen from 'screens/SignInScreen';
-import {ConfirmSignUpScreen} from 'screens/ConfirmSignUpScreen';
-import ForgotPasswordScreen from 'screens/ForgotPasswordScreen';
-import ForgotPasswordSubmitScreen from 'screens/ForgotPasswordSubmitScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import SignUpScreen from 'screens/auth/SignUpScreen';
+import SignInScreen from 'screens/auth/SignInScreen';
+import { ConfirmSignUpScreen } from 'screens/auth/ConfirmSignUpScreen';
+import ForgotPasswordScreen from 'screens/auth/ForgotPasswordScreen';
+import ForgotPasswordSubmitScreen from 'screens/auth/ForgotPasswordSubmitScreen';
 
 export const AuthStack = () => {
   const Stack = createStackNavigator();

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {MapStackScreen} from 'navigation/stacks/MapStackScreen';
-import {QuestStackScreen} from 'navigation/stacks/QuestStackScreen';
-import {ChallengeStackScreen} from 'navigation/stacks/ChallengeStackScreen';
-import {LandmarkStackScreen} from 'navigation/stacks/LandmarkStackScreen';
-import {ProfileStackScreen} from 'navigation/stacks/ProfileStackScreen';
-import {StyleSheet} from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MapStackScreen } from 'navigation/stacks/MapStackScreen';
+import { QuestStackScreen } from 'navigation/stacks/QuestStackScreen';
+import { ChallengeStackScreen } from 'navigation/stacks/ChallengeStackScreen';
+import { LandmarkStackScreen } from 'navigation/stacks/LandmarkStackScreen';
+import { ProfileStackScreen } from 'navigation/stacks/ProfileStackScreen';
+import { StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Tab = createBottomTabNavigator();
@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
 
 export const AppStack = () => (
   <Tab.Navigator
-    screenOptions={({route}) => ({
-      tabBarIcon: ({focused, color, size}) => {
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
         let iconName;
 
         if (route.name === 'Map') {

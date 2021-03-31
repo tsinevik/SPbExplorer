@@ -1,17 +1,7 @@
 import React from 'react';
-import {
-  Body,
-  Button,
-  Container,
-  Content,
-  H1,
-  H2,
-  Left,
-  Right,
-} from 'native-base';
+import { Container, Content, H1, H2 } from 'native-base';
 import Swiper from 'react-native-swiper';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -24,7 +14,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const LandmarkDetailsScreen = ({route}) => {
+export const LandmarkDetailsScreen = ({ route }) => {
   const props = route.params;
   return (
     <Container>

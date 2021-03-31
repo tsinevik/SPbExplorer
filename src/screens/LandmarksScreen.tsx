@@ -1,24 +1,22 @@
-import React from 'react';
-import {Container, Content} from "native-base";
-import {LandmarkCard} from "components/LandmarkCard";
-
-const landmarkProps = {
-  title: 'Дворцовый мост',
-  description: 'ну мост крч, красивый, разводной. Шо ещё сказать?',
-  image:
-    'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
-};
-
-const landmarks = [
-  <LandmarkCard {...landmarkProps} />,
-  <LandmarkCard {...landmarkProps} />,
-  <LandmarkCard {...landmarkProps} />,
-];
+import React, { useEffect, useState } from 'react';
+import { Container, Content } from 'native-base';
+import { LandmarkCard } from 'components/LandmarkCard';
+import { getLandmarkList } from 'api/db-service';
 
 export const LandmarksScreen = () => {
+  const [landmarks, setLandmarks] = useState([]); //todo multiple similar hooks
+  useEffect(() => {
+    getLandmarkList().then((landmarkList) => setLandmarks(landmarkList));
+  }, []);
+
   return (
     <Container>
-      <Content>{landmarks}</Content>
+      <Content>
+        {/*todo carry to common function*/}
+        {landmarks.map((landmark) => (
+          <LandmarkCard {...landmark} />
+        ))}
+      </Content>
     </Container>
   );
 };

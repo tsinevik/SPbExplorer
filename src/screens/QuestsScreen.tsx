@@ -1,20 +1,8 @@
 import * as React from 'react';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import {
-  Button,
-  Card,
-  CardItem,
-  Icon,
-  Left,
-  Body,
-  Right,
-  Container,
-  Content,
-} from 'native-base';
+import { Container, Content } from 'native-base';
 import QuestCard from 'components/QuestCard';
-import firestore from '@react-native-firebase/firestore';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
+import { getQuestList } from 'api/db-service';
 
 // type ProfileScreenNavigationProp = BottomTabNavigationProp<
 //   RootStackParamList,
@@ -25,22 +13,18 @@ import {useEffect, useState} from 'react';
 //   navigation: ProfileScreenNavigationProp;
 // };
 
-export const QuestsScreen = ({navigation}) => {
+export const QuestsScreen = ({ navigation }) => {
   const [quests, setQuests] = useState([]);
   useEffect(() => {
-    const subscriber = firestore()
-      .collection('quests')
-      .onSnapshot((documentSnapshot) => {
-        setQuests(documentSnapshot.docs.map(doc => doc.data()));
-      });
-    // Stop listening for updates when no longer required
-    return () => subscriber();
+    getQuestList().then((questList) => setQuests(questList));
   }, []);
 
   return (
     <Container>
       <Content>
-        {quests.map(quest => <QuestCard {...quest} />)}
+        {quests.map((quest) => (
+          <QuestCard {...quest} />
+        ))}
       </Content>
     </Container>
   );
