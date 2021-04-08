@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Container, Content } from 'native-base';
 import { LandmarkGroupCard } from 'components/LandmarkGroupCard';
 import { useEffect, useState } from 'react';
-import { getLandmarkGroupList } from 'api/db-service';
+import { getLandmarkGroupList } from 'api/storage-service';
 
 export const LandmarkGroupsScreen = ({ navigation }) => {
   const [groups, setGroups] = useState([]);

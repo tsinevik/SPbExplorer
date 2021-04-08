@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Container, Content } from 'native-base';
 import QuestCard from 'components/QuestCard';
 import { useEffect, useState } from 'react';
-import { getQuestList } from 'api/db-service';
+import { getQuestList } from 'api/storage-service';
 
 // type ProfileScreenNavigationProp = BottomTabNavigationProp<
 //   RootStackParamList,

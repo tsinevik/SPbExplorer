@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Content } from 'native-base';
 import { LandmarkCard } from 'components/LandmarkCard';
-import { getLandmarkList } from 'api/db-service';
+import { getLandmarkList } from 'api/storage-service';
 
 export const LandmarksScreen = () => {
   const [landmarks, setLandmarks] = useState([]); //todo multiple similar hooks
