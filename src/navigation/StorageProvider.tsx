@@ -18,7 +18,15 @@ const db: GlobalState = {
   ],
 };
 
-export const StorageContext = createContext({});
+type Context = {
+  state: GlobalState;
+  dispatch: React.Dispatch<Action>;
+};
+
+export const StorageContext = createContext<Context>({
+  state: db,
+  dispatch: () => {},
+});
 
 const reducer = (state: GlobalState, action: Action) => {
   switch (action.type) {
