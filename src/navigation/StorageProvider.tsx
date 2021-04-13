@@ -1,15 +1,45 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useReducer } from 'react';
+import { Action, ChildProps, GlobalState, LatLng } from 'models/types';
+
+const db: GlobalState = {
+  quests: [
+    { latlng: [59.954353, 30.322607] },
+    { latlng: [59.939397, 30.321887] },
+  ],
+  landmarks: [
+    { latlng: [59.962453, 30.322507] },
+    { latlng: [59.922697, 30.321387] },
+  ],
+  fog: [
+    { latitude: 59.954453, longitude: 30.322507 },
+    { latitude: 59.939697, longitude: 30.321387 },
+    { latitude: 59.954353, longitude: 30.322607 },
+    { latitude: 59.939397, longitude: 30.321887 },
+  ],
+};
 
 export const StorageContext = createContext({});
 
-export const StorageProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+const reducer = (state: GlobalState, action: Action) => {
+  switch (action.type) {
+    case 'FOG_UPDATE':
+      return {
+        ...state,
+        fog: [...state.fog, action.payload] as LatLng[],
+      };
+    default:
+      throw new Error();
+  }
+};
+
+export const StorageProvider = ({ children }: ChildProps) => {
+  const [state, dispatch] = useReducer(reducer, db);
 
   return (
     <StorageContext.Provider
       value={{
-        user,
-        setUser,
+        state,
+        dispatch,
       }}>
       {children}
     </StorageContext.Provider>
