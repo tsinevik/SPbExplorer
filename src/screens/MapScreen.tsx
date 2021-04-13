@@ -1,60 +1,49 @@
 import * as React from 'react';
 import { WebView } from 'react-native-webview';
-import { useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import Geolocation from 'react-native-geolocation-service';
+import { StorageContext } from 'navigation/StorageProvider';
+import { isPointVisited } from 'api/storage-service';
+import { LatLng } from 'models/types';
 
 const handleMessage = (message: string) => {
   console.log(message);
 };
 
 export const MapScreen = ({ navigation }) => {
-  const webViewRef = useRef(null);
+  let webViewRef = useRef(null!);
+  const { state, dispatch } = useContext(StorageContext);
 
-  const data = {
-    type: 'initial',
-    data: {
-      quests: [
-        { latlng: [59.954353, 30.322607] },
-        { latlng: [59.939397, 30.321887] },
-      ],
-      landmarks: [
-        { latlng: [59.962453, 30.322507] },
-        { latlng: [59.922697, 30.321387] },
-      ],
-      fog: [
-        [59.954453, 30.322507],
-        [59.939697, 30.321387],
-        [59.954353, 30.322607],
-        [59.939397, 30.321887],
-      ],
-    },
+  useEffect(() => {
+    Geolocation.watchPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        const coords: LatLng = { latitude, longitude };
+        if (!isPointVisited(state.fog, coords)) {
+          dispatch({ type: 'FOG_UPDATE', payload: coords });
+          sendMessage('COORDS', coords);
+        }
+      },
+      (error) => {
+        // See error code charts below.
+        console.log(error.code, error.message);
+      },
+      { enableHighAccuracy: true, distanceFilter: 10 },
+    );
+  });
+
+  const sendMessage = (type: string, data: {}) => {
+    const message = { type, data };
+    // @ts-ignore
+    webViewRef.current.postMessage(JSON.stringify(message));
   };
-
-  Geolocation.watchPosition(
-    (position) => {
-      const { latitude, longitude } = position.coords;
-      const coords = [latitude, longitude];
-      console.log(coords);
-      if (!data.data.fog.includes(coords)) {
-        data.data.fog.push(coords);
-        webViewRef.current.postMessage(
-          JSON.stringify({ type: 'COORDS', data: coords }),
-        );
-      }
-    },
-    (error) => {
-      // See error code charts below.
-      console.log(error.code, error.message);
-    },
-    { enableHighAccuracy: true, distanceFilter: 5 },
-  );
 
   return (
     <WebView
       ref={webViewRef}
       source={{ uri: 'http://192.168.1.127:3000' }}
       // source={{uri: 'https://spbexplorer-5efb8.web.app'}}
-      onLoadEnd={() => webViewRef.current.postMessage(JSON.stringify(data))}
+      onLoadEnd={() => sendMessage('initial', state)}
       onMessage={(event) => handleMessage(event.nativeEvent.data)}
     />
   );
