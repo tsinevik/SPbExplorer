@@ -39,7 +39,7 @@ export const getUser = async () => {};
 export const isPointVisited = (fog: LatLng[], point: LatLng) => {
   const radius = 25;
   return fog.some((fogPoint) => {
-    return distanceBetweenEarthCoordinates(fogPoint, point) > radius;
+    return distanceBetweenEarthCoordinates(fogPoint, point) < radius;
   });
 };
 

@@ -44,7 +44,7 @@ export const MapScreen = ({ navigation }) => {
     <WebView
       ref={webViewRef}
       source={{ uri: 'http://192.168.1.127:3000' }}
-      onLoadEnd={() => sendMessage(createMessage('initial', state))}
+      onLoadEnd={() => sendMessage(createMessage('INITIAL', state))}
       onMessage={(event) => handleMessage(event.nativeEvent.data)}
     />
   );
