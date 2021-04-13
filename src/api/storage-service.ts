@@ -46,8 +46,8 @@ export const isPointVisited = (fog: LatLng[], point: LatLng) => {
 const degreesToRadians = (degrees: number) => (degrees * Math.PI) / 180;
 
 const distanceBetweenEarthCoordinates = (p1: LatLng, p2: LatLng) => {
-  let { latitude: lat1, longitude: lng1 } = p1;
-  let { latitude: lat2, longitude: lng2 } = p2;
+  let [lat1, lng1] = p1;
+  let [lat2, lng2] = p2;
 
   const earthRadiusMeters = 6371e3;
 

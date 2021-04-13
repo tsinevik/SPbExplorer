@@ -18,7 +18,7 @@ export const MapScreen = ({ navigation }) => {
     Geolocation.watchPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        const coords: LatLng = { latitude, longitude };
+        const coords: LatLng = [latitude, longitude];
         if (!isPointVisited(state.fog, coords)) {
           const action = createMessage('FOG_UPDATE', coords);
           dispatch(action);

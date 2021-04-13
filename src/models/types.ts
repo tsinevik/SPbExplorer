@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface Action {
   type: string;
   payload: {};
@@ -9,9 +11,6 @@ export interface GlobalState {
   fog: LatLng[];
 }
 
-export interface LatLng {
-  latitude: number;
-  longitude: number;
-}
+export type LatLng = [number, number];
 
 export type ChildProps = { children: React.ReactNode };
