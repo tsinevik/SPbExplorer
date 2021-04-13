@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Button, Text, TextInput, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../types/RootStackParamList';
+import { RootStackParamList } from '../../models/RootStackParamList';
 import { AuthContext } from 'navigation/AuthProvider';
 
 type ProfileScreenNavigationProp = StackNavigationProp<

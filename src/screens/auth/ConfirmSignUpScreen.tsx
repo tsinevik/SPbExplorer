@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { Button, Text, TextInput, View } from 'react-native';
-import { RootStackParamList } from '../../types/RootStackParamList';
+import { RootStackParamList } from '../../models/RootStackParamList';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,

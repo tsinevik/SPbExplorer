@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, TextInput, View } from 'react-native';
 import * as Keychain from 'react-native-keychain';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../types/RootStackParamList';
+import { RootStackParamList } from '../../models/RootStackParamList';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
