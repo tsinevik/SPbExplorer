@@ -4,7 +4,7 @@ import { useContext, useEffect, useRef } from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import { StorageContext } from 'navigation/StorageProvider';
 import { isPointVisited } from 'api/storage-service';
-import { LatLng } from 'models/types';
+import { Action, LatLng } from 'models/types';
 
 const handleMessage = (message: string) => {
   console.log(message);
@@ -20,8 +20,9 @@ export const MapScreen = ({ navigation }) => {
         const { latitude, longitude } = position.coords;
         const coords: LatLng = { latitude, longitude };
         if (!isPointVisited(state.fog, coords)) {
-          dispatch({ type: 'FOG_UPDATE', payload: coords });
-          sendMessage('COORDS', coords);
+          const action = createMessage('FOG_UPDATE', coords);
+          dispatch(action);
+          sendMessage(action);
         }
       },
       (error) => {
@@ -32,8 +33,9 @@ export const MapScreen = ({ navigation }) => {
     );
   });
 
-  const sendMessage = (type: string, data: {}) => {
-    const message = { type, data };
+  const createMessage = (type: string, payload: {}) => ({ type, payload });
+
+  const sendMessage = (message: Action) => {
     // @ts-ignore
     webViewRef.current.postMessage(JSON.stringify(message));
   };
@@ -42,8 +44,7 @@ export const MapScreen = ({ navigation }) => {
     <WebView
       ref={webViewRef}
       source={{ uri: 'http://192.168.1.127:3000' }}
-      // source={{uri: 'https://spbexplorer-5efb8.web.app'}}
-      onLoadEnd={() => sendMessage('initial', state)}
+      onLoadEnd={() => sendMessage(createMessage('initial', state))}
       onMessage={(event) => handleMessage(event.nativeEvent.data)}
     />
   );
