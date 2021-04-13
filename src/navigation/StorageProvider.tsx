@@ -3,12 +3,24 @@ import { Action, ChildProps, GlobalState, LatLng } from 'models/types';
 
 const db: GlobalState = {
   quests: [
-    { latlng: [59.954353, 30.322607] },
-    { latlng: [59.939397, 30.321887] },
+    {
+      title: 'Квест 1',
+      address: 'Улица Пушкина, дом Колотушкина',
+      description: 'yoooo',
+      latlng: [59.954353, 30.322607],
+      photoUrl: 'yoooooo',
+    },
+    {
+      title: 'Квест 1',
+      address: 'Улица Пушкина, дом Колотушкина',
+      description: 'yoooo',
+      latlng: [59.939397, 30.321887],
+      photoUrl: 'yoooooo',
+    },
   ],
   landmarks: [
-    { latlng: [59.962453, 30.322507] },
-    { latlng: [59.922697, 30.321387] },
+    { name: 'Случайная точка 1', latlng: [59.962453, 30.322507] },
+    { name: 'Случайная точка 2', latlng: [59.922697, 30.321387] },
   ],
   fog: [
     [59.954453, 30.322507],

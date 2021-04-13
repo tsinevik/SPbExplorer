@@ -6,9 +6,24 @@ export interface Action {
 }
 
 export interface GlobalState {
-  quests: { latlng: number[] }[];
-  landmarks: { latlng: number[] }[];
+  quests: Quest[];
+  landmarks: Landmark[];
   fog: LatLng[];
+}
+
+export interface Quest {
+  title: string;
+  address: string;
+  latlng: LatLng;
+  description: string;
+  photoUrl: string;
+}
+
+export interface Landmark {
+  name: string;
+  latlng: LatLng;
+  description?: string;
+  photoUrl?: string;
 }
 
 export type LatLng = [number, number];
