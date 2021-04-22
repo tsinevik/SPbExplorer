@@ -42,13 +42,14 @@ export const StorageContext = createContext<Context>({
 
 const reducer = (state: GlobalState, action: Action) => {
   switch (action.type) {
-    case 'FOG_UPDATE':
+    case 'UPDATE_FOG':
       return {
         ...state,
         fog: [...state.fog, action.payload] as LatLng[],
       };
     default:
-      throw new Error();
+      console.log('WRONG ACTION TYPE!');
+      return state;
   }
 };
 
