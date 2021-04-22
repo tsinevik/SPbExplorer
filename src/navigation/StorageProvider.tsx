@@ -8,28 +8,26 @@ import {
 } from 'models/types';
 
 const db: GlobalState = {
-  quests: [
-    {
-      id: '0',
+  quests: {
+    '0': {
       title: 'Квест 1',
       address: 'Улица Пушкина, дом Колотушкина',
       description: 'yoooo',
       latlng: [59.954353, 30.322607],
       photoUrl: 'yoooooo',
     },
-    {
-      id: '1',
+    '1': {
       title: 'Квест 1',
       address: 'Улица Пушкина, дом Колотушкина',
       description: 'yoooo',
       latlng: [59.939397, 30.321887],
       photoUrl: 'yoooooo',
     },
-  ],
-  landmarks: [
-    { id: '0', name: 'Случайная точка 1', latlng: [59.962453, 30.322507] },
-    { id: '1', name: 'Случайная точка 2', latlng: [59.922697, 30.321387] },
-  ],
+  },
+  landmarks: {
+    '0': { name: 'Случайная точка 1', latlng: [59.962453, 30.322507] },
+    '1': { name: 'Случайная точка 2', latlng: [59.922697, 30.321387] },
+  },
   fog: [
     [59.954453, 30.322507],
     [59.939697, 30.321387],
@@ -50,7 +48,7 @@ export const StorageContext = createContext<Context>({
 
 const reducer = (state: GlobalState, action: Action) => {
   switch (action.type) {
-    case ActionType.UPLOAD_FOG:
+    case ActionType.UPDATE_FOG:
       return {
         ...state,
         fog: [...state.fog, action.payload] as LatLng[],

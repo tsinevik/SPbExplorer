@@ -6,13 +6,12 @@ export interface Action {
 }
 
 export interface GlobalState {
-  quests: Quest[];
-  landmarks: Landmark[];
+  quests: { [key: string]: Quest };
+  landmarks: { [key: string]: Landmark };
   fog: LatLng[];
 }
 
 export interface Quest {
-  id: string;
   title: string;
   address: string;
   latlng: LatLng;
@@ -21,7 +20,6 @@ export interface Quest {
 }
 
 export interface Landmark {
-  id: string;
   name: string;
   latlng: LatLng;
   description?: string;
@@ -30,7 +28,8 @@ export interface Landmark {
 
 export enum ActionType {
   INITIAL = 'INITIAL',
-  UPLOAD_FOG = 'UPLOAD_FOG',
+  UPDATE_FOG = 'UPDATE_FOG',
+  QUEST = 'QUEST',
 }
 
 export type LatLng = [number, number];
