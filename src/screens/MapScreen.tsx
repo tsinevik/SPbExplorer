@@ -5,6 +5,7 @@ import Geolocation from 'react-native-geolocation-service';
 import { StorageContext } from 'navigation/StorageProvider';
 import { isPointVisited } from 'api/storage-service';
 import { Action, LatLng } from 'models/types';
+import { Platform } from 'react-native';
 
 const handleMessage = (message: string) => {
   console.log(message);
@@ -15,23 +16,35 @@ export const MapScreen = ({ navigation }) => {
   const { state, dispatch } = useContext(StorageContext);
 
   useEffect(() => {
-    Geolocation.watchPosition(
+    const watchId = Geolocation.watchPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        const coords: LatLng = [latitude, longitude];
+        const coords: LatLng = [+latitude.toFixed(6), +longitude.toFixed(6)];
+        // console.log(coords);
+        // console.log(state.fog);
         if (!isPointVisited(state.fog, coords)) {
-          const action = createMessage('FOG_UPDATE', coords);
+          // console.log('add new point to state');
+          // console.log(state.fog);
+          const action = createMessage('UPDATE_FOG', coords);
           dispatch(action);
-          sendMessage(action);
         }
       },
       (error) => {
         // See error code charts below.
         console.log(error.code, error.message);
       },
-      { enableHighAccuracy: true, distanceFilter: 10 },
+      {
+        enableHighAccuracy: true,
+        distanceFilter: 25,
+      },
     );
-  });
+
+    return () => Geolocation.clearWatch(watchId);
+  }, [dispatch, state.fog]);
+
+  useEffect(() => {
+    sendMessage(createMessage('UPDATE_FOG', state.fog));
+  }, [state.fog]);
 
   const createMessage = (type: string, payload: {}) => ({ type, payload });
 
@@ -40,12 +53,31 @@ export const MapScreen = ({ navigation }) => {
     webViewRef.current.postMessage(JSON.stringify(message));
   };
 
+  const sourceUri =
+    (Platform.OS === 'android' ? 'file:///android_asset/' : '') +
+    'Web.bundle/loader.html';
+
+  const params = 'platform=' + Platform.OS;
+  const injectedJS = `
+  if (!window.location.search) {
+    const link = document.getElementById('progress-bar');
+    link.href = './site/index.html?${params}';
+    link.click();
+  }
+`;
+
   return (
     <WebView
       ref={webViewRef}
-      source={{ uri: 'http://192.168.1.127:3000' }}
+      // injectedJavaScript={injectedJS}
+      // source={{ uri: sourceUri }}
+      // javaScriptEnabled={true}
+      // originWhitelist={['*']}
+      // allowFileAccess={true}
       onLoadEnd={() => sendMessage(createMessage('INITIAL', state))}
       onMessage={(event) => handleMessage(event.nativeEvent.data)}
+      source={{ uri: 'http://192.168.1.127:3000' }}
+      // source={{ uri: 'https://spbexplorer-5efb8.web.app' }}
     />
   );
 };
