@@ -1,5 +1,11 @@
 import React, { createContext, useReducer } from 'react';
-import { Action, ChildProps, GlobalState, LatLng } from 'models/types';
+import {
+  Action,
+  ActionType,
+  ChildProps,
+  GlobalState,
+  LatLng,
+} from 'models/types';
 
 const db: GlobalState = {
   quests: [
@@ -42,7 +48,7 @@ export const StorageContext = createContext<Context>({
 
 const reducer = (state: GlobalState, action: Action) => {
   switch (action.type) {
-    case 'UPDATE_FOG':
+    case ActionType.UPLOAD_FOG:
       return {
         ...state,
         fog: [...state.fog, action.payload] as LatLng[],

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { WebView } from 'react-native-webview';
 import { useContext, useEffect, useRef } from 'react';
+import { WebView } from 'react-native-webview';
 import Geolocation from 'react-native-geolocation-service';
 import { StorageContext } from 'navigation/StorageProvider';
 import { isPointVisited } from 'api/storage-service';
-import { Action, LatLng } from 'models/types';
+import { Action, ActionType, LatLng } from 'models/types';
 import { Platform } from 'react-native';
 
 const handleMessage = (message: string) => {
@@ -25,7 +25,7 @@ export const MapScreen = ({ navigation }) => {
         if (!isPointVisited(state.fog, coords)) {
           // console.log('add new point to state');
           // console.log(state.fog);
-          const action = createMessage('UPDATE_FOG', coords);
+          const action = createMessage(ActionType.UPLOAD_FOG, coords);
           dispatch(action);
         }
       },
@@ -43,10 +43,13 @@ export const MapScreen = ({ navigation }) => {
   }, [dispatch, state.fog]);
 
   useEffect(() => {
-    sendMessage(createMessage('UPDATE_FOG', state.fog));
+    sendMessage(createMessage(ActionType.UPLOAD_FOG, state.fog));
   }, [state.fog]);
 
-  const createMessage = (type: string, payload: {}) => ({ type, payload });
+  const createMessage = (type: ActionType, payload: {}): Action => ({
+    type,
+    payload,
+  });
 
   const sendMessage = (message: Action) => {
     // @ts-ignore
@@ -74,7 +77,7 @@ export const MapScreen = ({ navigation }) => {
       // javaScriptEnabled={true}
       // originWhitelist={['*']}
       // allowFileAccess={true}
-      onLoadEnd={() => sendMessage(createMessage('INITIAL', state))}
+      onLoadEnd={() => sendMessage(createMessage(ActionType.INITIAL, state))}
       onMessage={(event) => handleMessage(event.nativeEvent.data)}
       source={{ uri: 'http://192.168.1.127:3000' }}
       // source={{ uri: 'https://spbexplorer-5efb8.web.app' }}

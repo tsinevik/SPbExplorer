@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface Action {
-  type: string;
+  type: ActionType;
   payload: {};
 }
 
@@ -24,6 +24,11 @@ export interface Landmark {
   latlng: LatLng;
   description?: string;
   photoUrl?: string;
+}
+
+export enum ActionType {
+  INITIAL,
+  UPLOAD_FOG,
 }
 
 export type LatLng = [number, number];
