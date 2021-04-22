@@ -27,8 +27,8 @@ export interface Landmark {
 }
 
 export enum ActionType {
-  INITIAL,
-  UPLOAD_FOG,
+  INITIAL = 'INITIAL',
+  UPLOAD_FOG = 'UPLOAD_FOG',
 }
 
 export type LatLng = [number, number];
