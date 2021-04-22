@@ -2,7 +2,6 @@ import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MapStackScreen } from 'navigation/stacks/MapStackScreen';
 import { QuestStackScreen } from 'navigation/stacks/QuestStackScreen';
-import { ChallengeStackScreen } from 'navigation/stacks/ChallengeStackScreen';
 import { LandmarkStackScreen } from 'navigation/stacks/LandmarkStackScreen';
 import { ProfileStackScreen } from 'navigation/stacks/ProfileStackScreen';
 import { StyleSheet } from 'react-native';
@@ -27,8 +26,6 @@ export const AppStack = () => (
           iconName = 'map';
         } else if (route.name === 'Quests') {
           iconName = 'question';
-        } else if (route.name === 'Challenges') {
-          iconName = 'flag-o';
         } else if (route.name === 'Landmarks') {
           iconName = 'map-signs';
         } else if (route.name === 'Profile') {
@@ -45,7 +42,6 @@ export const AppStack = () => (
     }}>
     <Tab.Screen name="Map" component={MapStackScreen} />
     <Tab.Screen name="Quests" component={QuestStackScreen} />
-    <Tab.Screen name="Challenges" component={ChallengeStackScreen} />
     <Tab.Screen name="Landmarks" component={LandmarkStackScreen} />
     <Tab.Screen name="Profile" component={ProfileStackScreen} />
   </Tab.Navigator>
