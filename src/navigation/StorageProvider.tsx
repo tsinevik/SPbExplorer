@@ -10,6 +10,7 @@ import {
 const db: GlobalState = {
   quests: [
     {
+      id: '0',
       title: 'Квест 1',
       address: 'Улица Пушкина, дом Колотушкина',
       description: 'yoooo',
@@ -17,6 +18,7 @@ const db: GlobalState = {
       photoUrl: 'yoooooo',
     },
     {
+      id: '1',
       title: 'Квест 1',
       address: 'Улица Пушкина, дом Колотушкина',
       description: 'yoooo',
@@ -25,8 +27,8 @@ const db: GlobalState = {
     },
   ],
   landmarks: [
-    { name: 'Случайная точка 1', latlng: [59.962453, 30.322507] },
-    { name: 'Случайная точка 2', latlng: [59.922697, 30.321387] },
+    { id: '0', name: 'Случайная точка 1', latlng: [59.962453, 30.322507] },
+    { id: '1', name: 'Случайная точка 2', latlng: [59.922697, 30.321387] },
   ],
   fog: [
     [59.954453, 30.322507],
