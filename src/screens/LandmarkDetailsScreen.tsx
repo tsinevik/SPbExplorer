@@ -23,7 +23,7 @@ export const LandmarkDetailsScreen = ({ route }) => {
           <View>
             <Image
               source={{
-                uri: props.image,
+                uri: props.photoUrl,
               }}
               style={styles.image}
             />
@@ -31,7 +31,7 @@ export const LandmarkDetailsScreen = ({ route }) => {
           <View>
             <Image
               source={{
-                uri: props.image,
+                uri: props.photoUrl,
               }}
               style={styles.image}
             />

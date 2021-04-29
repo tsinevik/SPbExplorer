@@ -33,7 +33,7 @@ export const QuestDetailsScreen = ({ route }) => {
           <View>
             <Image
               source={{
-                uri: props.image,
+                uri: props.photoUrl,
               }}
               style={styles.image}
             />
@@ -41,7 +41,7 @@ export const QuestDetailsScreen = ({ route }) => {
           <View>
             <Image
               source={{
-                uri: props.image,
+                uri: props.photoUrl,
               }}
               style={styles.image}
             />
@@ -49,7 +49,7 @@ export const QuestDetailsScreen = ({ route }) => {
           <View>
             <Image
               source={{
-                uri: props.image,
+                uri: props.photoUrl,
               }}
               style={styles.image}
             />
@@ -63,15 +63,15 @@ export const QuestDetailsScreen = ({ route }) => {
         <View>
           <Left>
             <Icon name="heart" />
-            <Text>{props.duration}</Text>
+            <Text>40</Text>
           </Left>
           <Body>
             <Icon name="heart" />
-            <Text>{props.length}</Text>
+            <Text>50</Text>
           </Body>
           <Right>
             <Icon name="heart" />
-            <Text>{props.exp}</Text>
+            <Text>60</Text>
           </Right>
         </View>
         <Button primary>
