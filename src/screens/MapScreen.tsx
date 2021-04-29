@@ -7,10 +7,6 @@ import { isPointVisited } from 'api/storage-service';
 import { Action, ActionType, LatLng } from 'models/types';
 import { Platform } from 'react-native';
 
-const handleMessage = (message: string) => {
-  console.log(message);
-};
-
 export const MapScreen = ({ navigation }) => {
   let webViewRef = useRef(null!);
   const { state, dispatch } = useContext(StorageContext);
@@ -20,12 +16,8 @@ export const MapScreen = ({ navigation }) => {
       (position) => {
         const { latitude, longitude } = position.coords;
         const coords: LatLng = [+latitude.toFixed(6), +longitude.toFixed(6)];
-        // console.log(coords);
-        // console.log(state.fog);
         if (!isPointVisited(state.fog, coords)) {
-          // console.log('add new point to state');
-          // console.log(state.fog);
-          const action = createMessage(ActionType.UPLOAD_FOG, coords);
+          const action = createMessage(ActionType.UPDATE_FOG, coords);
           dispatch(action);
         }
       },
@@ -43,7 +35,7 @@ export const MapScreen = ({ navigation }) => {
   }, [dispatch, state.fog]);
 
   useEffect(() => {
-    sendMessage(createMessage(ActionType.UPLOAD_FOG, state.fog));
+    sendMessage(createMessage(ActionType.UPDATE_FOG, state.fog));
   }, [state.fog]);
 
   const createMessage = (type: ActionType, payload: {}): Action => ({
@@ -54,6 +46,32 @@ export const MapScreen = ({ navigation }) => {
   const sendMessage = (message: Action) => {
     // @ts-ignore
     webViewRef.current.postMessage(JSON.stringify(message));
+  };
+
+  const handleMessage = (message: Action) => {
+    const payload = message.payload as string;
+    console.log(message);
+    switch (message.type) {
+      case ActionType.OPEN_QUEST:
+        const questData = state.quests[payload];
+        navigation.navigate('Quests', { screen: 'Details', params: questData });
+        break;
+      case ActionType.OPEN_LANDMARK:
+        const landmarkData = state.landmarks[payload];
+        navigation.navigate('Landmarks', {
+          screen: 'Details',
+          params: landmarkData,
+        });
+        break;
+      case ActionType.VISIT_LANDMARK:
+        const action = createMessage(ActionType.VISIT_LANDMARK, payload);
+        dispatch(action);
+        sendMessage(action);
+        break;
+      default:
+        console.log('yooo');
+        throw Error('WRONG MESSAGE TYPE');
+    }
   };
 
   const sourceUri =
@@ -78,7 +96,7 @@ export const MapScreen = ({ navigation }) => {
       // originWhitelist={['*']}
       // allowFileAccess={true}
       onLoadEnd={() => sendMessage(createMessage(ActionType.INITIAL, state))}
-      onMessage={(event) => handleMessage(event.nativeEvent.data)}
+      onMessage={(event) => handleMessage(JSON.parse(event.nativeEvent.data))}
       source={{ uri: 'http://192.168.1.127:3000' }}
       // source={{ uri: 'https://spbexplorer-5efb8.web.app' }}
     />
