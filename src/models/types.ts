@@ -2,8 +2,10 @@ import React from 'react';
 
 export interface Action {
   type: ActionType;
-  payload: {};
+  payload: Payload;
 }
+
+type Payload = string | LatLng | object;
 
 export interface GlobalState {
   quests: { [key: string]: Quest };
@@ -22,6 +24,7 @@ export interface Quest {
 export interface Landmark {
   name: string;
   latlng: LatLng;
+  isVisited: boolean;
   description?: string;
   photoUrl?: string;
 }
@@ -29,7 +32,9 @@ export interface Landmark {
 export enum ActionType {
   INITIAL = 'INITIAL',
   UPDATE_FOG = 'UPDATE_FOG',
-  QUEST = 'QUEST',
+  OPEN_QUEST = 'OPEN_QUEST',
+  OPEN_LANDMARK = 'OPEN_LANDMARK',
+  VISIT_LANDMARK = 'VISIT_LANDMARK',
 }
 
 export type LatLng = [number, number];
