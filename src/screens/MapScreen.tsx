@@ -28,6 +28,7 @@ export const MapScreen = ({ navigation }) => {
       {
         enableHighAccuracy: true,
         distanceFilter: 25,
+        showsBackgroundLocationIndicator: true,
       },
     );
 
