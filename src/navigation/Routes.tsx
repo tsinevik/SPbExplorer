@@ -5,10 +5,14 @@ import { AuthStack } from './stacks/AuthStack';
 import { AppStack } from './stacks/AppStack';
 import { AuthContext } from './AuthProvider';
 import Loading from './Loading';
+import { createStackNavigator } from '@react-navigation/stack';
+import { PlayQuestStackScreen } from 'navigation/stacks/PlayQuestStackScreen';
 
-export const Routes = () => {
+const RootStack = createStackNavigator();
+
+const RootStackScreen = () => {
   const { user, setUser } = useContext(AuthContext);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
   const [initializing, setInitializing] = useState(true);
 
   // Handle user state changes
@@ -25,13 +29,31 @@ export const Routes = () => {
     return subscriber; // unsubscribe on unmount
   }, []);
 
-  if (loading) {
-    return <Loading />;
-  }
+  return (
+    <RootStack.Navigator
+      headerMode="none"
+      screenOptions={{ animationEnabled: false }}
+      mode="modal">
+      {isLoading ? (
+        <RootStack.Screen name="Loading" component={Loading} />
+      ) : user ? (
+        <RootStack.Screen name="AppStackScreen" component={AppStack} />
+      ) : (
+        <RootStack.Screen name="AuthStackScreen" component={AuthStack} />
+      )}
+      <RootStack.Screen
+        name="Modal"
+        component={PlayQuestStackScreen}
+        options={{ animationEnabled: true, gestureEnabled: false }}
+      />
+    </RootStack.Navigator>
+  );
+};
 
+export const Routes = () => {
   return (
     <NavigationContainer>
-      {user ? <AppStack /> : <AuthStack />}
+      <RootStackScreen />
     </NavigationContainer>
   );
 };

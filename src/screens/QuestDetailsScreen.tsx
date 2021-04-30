@@ -12,6 +12,7 @@ import {
 import Swiper from 'react-native-swiper';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -25,7 +26,8 @@ const styles = StyleSheet.create({
 });
 
 export const QuestDetailsScreen = ({ route }) => {
-  const props = route.params;
+  const params = route.params;
+  const navigation = useNavigation();
   return (
     <Container>
       <Content>
@@ -33,7 +35,7 @@ export const QuestDetailsScreen = ({ route }) => {
           <View>
             <Image
               source={{
-                uri: props.photoUrl,
+                uri: params.photoUrl,
               }}
               style={styles.image}
             />
@@ -41,7 +43,7 @@ export const QuestDetailsScreen = ({ route }) => {
           <View>
             <Image
               source={{
-                uri: props.photoUrl,
+                uri: params.photoUrl,
               }}
               style={styles.image}
             />
@@ -49,16 +51,16 @@ export const QuestDetailsScreen = ({ route }) => {
           <View>
             <Image
               source={{
-                uri: props.photoUrl,
+                uri: params.photoUrl,
               }}
               style={styles.image}
             />
           </View>
         </Swiper>
-        <H1>{props.title}</H1>
+        <H1>{params.title}</H1>
         <View>
           <Icon name="heart" />
-          <Text>{props.address}</Text>
+          <Text>{params.address}</Text>
         </View>
         <View>
           <Left>
@@ -74,14 +76,14 @@ export const QuestDetailsScreen = ({ route }) => {
             <Text>60</Text>
           </Right>
         </View>
-        <Button primary>
+        <Button primary onPress={() => navigation.navigate('Modal')}>
           <Text>Начать</Text>
         </Button>
         <Button primary>
           <Text>Показать на карте</Text>
         </Button>
         <H2>Описание</H2>
-        <Text>{props.description}</Text>
+        <Text>{params.description}</Text>
       </Content>
     </Container>
   );

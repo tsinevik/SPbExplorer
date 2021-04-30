@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 });
 
 export const LandmarkDetailsScreen = ({ route }) => {
-  const props = route.params;
+  const params = route.params;
   return (
     <Container>
       <Content>
@@ -23,7 +23,7 @@ export const LandmarkDetailsScreen = ({ route }) => {
           <View>
             <Image
               source={{
-                uri: props.photoUrl,
+                uri: params.photoUrl,
               }}
               style={styles.image}
             />
@@ -31,15 +31,15 @@ export const LandmarkDetailsScreen = ({ route }) => {
           <View>
             <Image
               source={{
-                uri: props.photoUrl,
+                uri: params.photoUrl,
               }}
               style={styles.image}
             />
           </View>
         </Swiper>
-        <H1>{props.title}</H1>
+        <H1>{params.title}</H1>
         <H2>Описание</H2>
-        <Text>{props.description}</Text>
+        <Text>{params.description}</Text>
       </Content>
     </Container>
   );
