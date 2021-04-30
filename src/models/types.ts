@@ -19,12 +19,13 @@ export interface Quest {
   latlng: LatLng;
   description: string;
   photoUrl: string;
+  completed: boolean;
 }
 
 export interface Landmark {
   name: string;
   latlng: LatLng;
-  isVisited: boolean;
+  visited: boolean;
   description?: string;
   photoUrl?: string;
 }
