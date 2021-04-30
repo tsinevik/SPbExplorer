@@ -1,18 +1,35 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import {
+  Button,
+  Container,
+  Content,
+  Text,
+  Input,
+  Item,
+  Label,
+} from 'native-base';
+import { Image } from 'react-native';
 
-export const PlayQuestScreen = ({ navigation }) => (
-  <View
-    style={{
-      flex: 1,
-      backgroundColor: 'transparent',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
-    <TouchableOpacity
-      style={{ backgroundColor: 'white', padding: 20 }}
-      onPress={() => navigation.pop()}>
-      <Text>Modal me</Text>
-    </TouchableOpacity>
-  </View>
-);
+export const PlayQuestScreen = ({ navigation }) => {
+  const task = { imageUrl: 'jdjd' };
+  return (
+    <Container>
+      <Content>
+        <Image
+          source={{
+            uri: task.imageUrl,
+          }}
+          style={{ height: 500 }}
+        />
+        <Text>{task.description}</Text>
+        <Item inlineLabel>
+          <Label>Ответ</Label>
+          <Input />
+        </Item>
+        <Button onPress={() => navigation.push('Play')}>
+          <Text>Ответить</Text>
+        </Button>
+      </Content>
+    </Container>
+  );
+};

@@ -7,5 +7,6 @@ const PlayQuestStack = createStackNavigator();
 export const PlayQuestStackScreen = () => (
   <PlayQuestStack.Navigator headerMode={'none'}>
     <PlayQuestStack.Screen name="Play" component={PlayQuestScreen} />
+    <PlayQuestStack.Screen name="Results" component={ResultsScreen} />
   </PlayQuestStack.Navigator>
 );
