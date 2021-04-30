@@ -18,8 +18,24 @@ const db: GlobalState = {
       description: 'yoooo',
       latlng: [59.954353, 30.322607],
       completed: false,
-      photoUrl:
+      imageUrl:
         'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
+      tasks: [
+        {
+          description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+          imageUrl:
+            'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
+          type: 'short-answer',
+          answer: 'yo1',
+        },
+        {
+          description: 'lorem ipsуum lorem ipsum lorem ipsum lorem ipsum',
+          imageUrl:
+            'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
+          type: 'short-answer',
+          answer: 'yo2',
+        },
+      ],
     },
     '1': {
       title: 'Квест 1',
@@ -27,8 +43,24 @@ const db: GlobalState = {
       description: 'yoooo',
       latlng: [59.939397, 30.321887],
       completed: false,
-      photoUrl:
+      imageUrl:
         'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
+      tasks: [
+        {
+          description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+          imageUrl:
+            'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
+          type: 'short-answer',
+          answer: 'yo1',
+        },
+        {
+          description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+          imageUrl:
+            'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
+          type: 'short-answer',
+          answer: 'yo2',
+        },
+      ],
     },
   },
   landmarks: {
@@ -36,14 +68,14 @@ const db: GlobalState = {
       name: 'Случайная точка 1',
       latlng: [59.962453, 30.322507],
       visited: false,
-      photoUrl:
+      imageUrl:
         'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
     },
     '1': {
       name: 'Случайная точка 2',
       latlng: [59.922697, 30.321387],
       visited: false,
-      photoUrl:
+      imageUrl:
         'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
     },
   },

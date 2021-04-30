@@ -18,16 +18,27 @@ export interface Quest {
   address: string;
   latlng: LatLng;
   description: string;
-  photoUrl: string;
+  imageUrl: string;
   completed: boolean;
+  tasks: Task[];
 }
+
+export interface Task {
+  description: string;
+  imageUrl: string;
+  answer: string;
+  type: TaskType;
+  choices?: string[];
+}
+
+type TaskType = 'short-answer' | 'multiple-choice';
 
 export interface Landmark {
   name: string;
   latlng: LatLng;
   visited: boolean;
   description?: string;
-  photoUrl?: string;
+  imageUrl?: string;
 }
 
 export enum ActionType {
