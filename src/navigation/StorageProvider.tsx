@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useEffect, useReducer } from 'react';
 import {
   Action,
   ActionType,
@@ -6,6 +6,8 @@ import {
   GlobalState,
   LatLng,
 } from 'models/types';
+import { Platform } from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
 
 const db: GlobalState = {
   quests: {
@@ -14,6 +16,7 @@ const db: GlobalState = {
       address: 'Улица Пушкина, дом Колотушкина',
       description: 'yoooo',
       latlng: [59.954353, 30.322607],
+      completed: false,
       photoUrl:
         'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
     },
@@ -22,6 +25,7 @@ const db: GlobalState = {
       address: 'Улица Пушкина, дом Колотушкина',
       description: 'yoooo',
       latlng: [59.939397, 30.321887],
+      completed: false,
       photoUrl:
         'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
     },
@@ -30,14 +34,14 @@ const db: GlobalState = {
     '0': {
       name: 'Случайная точка 1',
       latlng: [59.962453, 30.322507],
-      isVisited: false,
+      visited: false,
       photoUrl:
         'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
     },
     '1': {
       name: 'Случайная точка 2',
       latlng: [59.922697, 30.321387],
-      isVisited: false,
+      visited: false,
       photoUrl:
         'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
     },
@@ -73,7 +77,7 @@ const reducer = (state: GlobalState, action: Action) => {
         ...state,
         landmarks: {
           ...state.landmarks,
-          [id]: { ...state.landmarks[id], isVisited: true },
+          [id]: { ...state.landmarks[id], visited: true },
         },
       };
     default:
@@ -84,6 +88,12 @@ const reducer = (state: GlobalState, action: Action) => {
 
 export const StorageProvider = ({ children }: ChildProps) => {
   const [state, dispatch] = useReducer(reducer, db);
+
+  useEffect(() => {
+    if (Platform.OS === 'ios') {
+      Geolocation.requestAuthorization('always');
+    }
+  }, []);
 
   return (
     <StorageContext.Provider
