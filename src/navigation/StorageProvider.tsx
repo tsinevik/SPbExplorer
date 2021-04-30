@@ -5,6 +5,7 @@ import {
   ChildProps,
   GlobalState,
   LatLng,
+  StorageCtx,
 } from 'models/types';
 import { Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
@@ -54,12 +55,7 @@ const db: GlobalState = {
   ],
 };
 
-type Context = {
-  state: GlobalState;
-  dispatch: React.Dispatch<Action>;
-};
-
-export const StorageContext = createContext<Context>({
+export const StorageContext = createContext<StorageCtx>({
   state: db,
   dispatch: () => {},
 });

@@ -38,6 +38,11 @@ export enum ActionType {
   VISIT_LANDMARK = 'VISIT_LANDMARK',
 }
 
+export type StorageCtx = {
+  state: GlobalState;
+  dispatch: React.Dispatch<Action>;
+};
+
 export type LatLng = [number, number];
 
 export type ChildProps = { children: React.ReactNode };
