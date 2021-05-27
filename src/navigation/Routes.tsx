@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { NavigationContainer, useTheme } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import { AuthStack } from './stacks/AuthStack';
 import { AppStack } from './stacks/AppStack';
@@ -7,6 +7,7 @@ import { AuthContext } from './AuthProvider';
 import Loading from './Loading';
 import { createStackNavigator } from '@react-navigation/stack';
 import { PlayQuestStackScreen } from 'navigation/stacks/PlayQuestStackScreen';
+import { SPbTheme } from 'styles/theme';
 
 const RootStack = createStackNavigator();
 
@@ -52,7 +53,7 @@ const RootStackScreen = () => {
 
 export const Routes = () => {
   return (
-    <NavigationContainer theme={useTheme()}>
+    <NavigationContainer theme={SPbTheme}>
       <RootStackScreen />
     </NavigationContainer>
   );

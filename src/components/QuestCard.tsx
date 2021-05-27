@@ -1,30 +1,55 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { Body, Button, CardItem, Left, Right } from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import CardList from 'components/CardList';
+import {
+  Body,
+  Button,
+  CardItem,
+  H2,
+  Icon,
+  Left,
+  Right,
+  Text,
+} from 'native-base';
+import BigCard from 'components/BigCard';
 
 const QuestCard = (props) => {
   return (
-    <CardList route="Details" cardInfo={props}>
+    <BigCard route="Details" cardInfo={props}>
+      <CardItem>
+        <H2>{props.title}</H2>
+      </CardItem>
       <CardItem>
         <Left>
           <Button transparent>
-            <Icon name="thumbs-up" />
-            <Text>{props.length}</Text>
+            <Icon type="FontAwesome5" name="map-marker-alt" />
+            <Text>{props.address}</Text>
+          </Button>
+        </Left>
+      </CardItem>
+      <CardItem>
+        <Left>
+          <Button transparent>
+            <Icon type="FontAwesome5" name="clock" />
+            <Text>{props.duration} мин</Text>
           </Button>
         </Left>
         <Body>
           <Button transparent>
-            <Icon name="gear" />
-            <Text>{props.duration}</Text>
+            <Icon
+              type="FontAwesome5"
+              name="shoe-prints"
+              style={{ transform: [{ rotate: '-90deg' }] }}
+            />
+            <Text>{props.length} км</Text>
           </Button>
         </Body>
         <Right>
-          <Text>{props.exp}</Text>
+          <Button transparent>
+            <Icon type="FontAwesome5" name="graduation-cap" />
+            <Text>{props.exp}</Text>
+          </Button>
         </Right>
       </CardItem>
-    </CardList>
+    </BigCard>
   );
 };
 

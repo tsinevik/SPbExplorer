@@ -2,11 +2,11 @@ import React from 'react';
 import { Text } from 'react-native';
 import { Button, CardItem, Left, Right } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import CardList from 'components/CardList';
+import BigCard from 'components/BigCard';
 
 export const LandmarkGroupCard = (props) => {
   return (
-    <CardList route="Groups" cardInfo={props}>
+    <BigCard route="Groups" cardInfo={props}>
       <CardItem>
         <Text>{props.title}</Text>
       </CardItem>
@@ -21,6 +21,6 @@ export const LandmarkGroupCard = (props) => {
           <Text>{props.exp}</Text>
         </Right>
       </CardItem>
-    </CardList>
+    </BigCard>
   );
 };

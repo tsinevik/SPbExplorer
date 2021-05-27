@@ -1,9 +1,10 @@
 import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
-import { Card, CardItem } from 'native-base';
+import { Body, Card, CardItem, Text } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
+import { styles } from 'styles/styles';
 
-const CardList = ({children, route, cardInfo}) => {
+const BigCard = ({ children, route, cardInfo }) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity onPress={() => navigation.navigate(route, cardInfo)}>
@@ -13,7 +14,7 @@ const CardList = ({children, route, cardInfo}) => {
             source={{
               uri: cardInfo.image,
             }}
-            style={{ height: 200, width: undefined, flex: 1 }}
+            style={styles.cardImage}
           />
         </CardItem>
         {children}
@@ -22,4 +23,4 @@ const CardList = ({children, route, cardInfo}) => {
   );
 };
 
-export default CardList;
+export default BigCard;

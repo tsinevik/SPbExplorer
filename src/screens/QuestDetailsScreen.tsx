@@ -5,13 +5,13 @@ import {
   Container,
   Content,
   H1,
-  H2,
   Left,
   Right,
+  Icon,
+  Text,
 } from 'native-base';
 import Swiper from 'react-native-swiper';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Image, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
     height: 500,
     width: undefined,
     // flex: 1,
+  },
+  flexRow: {
+    flexDirection: 'row',
   },
 });
 
@@ -59,38 +62,40 @@ export const QuestDetailsScreen = ({ route }) => {
           </View>
         </Swiper>
         <H1>{params.title}</H1>
-        <View>
-          <Icon name="heart" />
+        <View style={styles.flexRow}>
+          <Icon type="FontAwesome5" name="map-marker-alt" />
           <Text>{params.address}</Text>
         </View>
-        <View>
-          <Left>
-            <Icon name="heart" />
-            <Text>40</Text>
-          </Left>
-          <Body>
-            <Icon name="heart" />
-            <Text>50</Text>
-          </Body>
-          <Right>
-            <Icon name="heart" />
-            <Text>60</Text>
-          </Right>
+        <View style={styles.flexRow}>
+          <View style={styles.flexRow}>
+            <Icon type="FontAwesome5" name="clock" />
+            <Text>{params.duration} мин</Text>
+          </View>
+          <View style={styles.flexRow}>
+            <Icon type="FontAwesome5" name="shoe-prints" />
+            <Text>{params.length} км</Text>
+          </View>
+          <View style={styles.flexRow}>
+            <Icon type="FontAwesome5" name="graduation-cap" />
+            <Text>{params.exp}</Text>
+          </View>
         </View>
-        <Button
-          primary
-          onPress={() =>
-            navigation.navigate('Modal', {
-              screen: 'Play',
-              params: { questId },
-            })
-          }>
-          <Text>Начать</Text>
-        </Button>
-        <Button primary>
-          <Text>Показать на карте</Text>
-        </Button>
-        <H2>Описание</H2>
+        <View style={styles.flexRow}>
+          <Button
+            primary
+            onPress={() =>
+              navigation.navigate('Modal', {
+                screen: 'Play',
+                params: { questId },
+              })
+            }>
+            <Text>Начать</Text>
+          </Button>
+          <Button bordered>
+            <Text>Показать на карте</Text>
+          </Button>
+        </View>
+        <H1>Описание</H1>
         <Text>{params.description}</Text>
       </Content>
     </Container>
