@@ -99,6 +99,7 @@ export const MapScreen = ({ navigation }) => {
       onLoadEnd={() => sendMessage(createMessage(ActionType.INITIAL, state))}
       onMessage={(event) => handleMessage(JSON.parse(event.nativeEvent.data))}
       source={{ uri: 'http://192.168.1.127:3000' }}
+      // source={{ uri: 'http://192.168.3.9:3000' }}
       // source={{ uri: 'https://spbexplorer-5efb8.web.app' }}
     />
   );

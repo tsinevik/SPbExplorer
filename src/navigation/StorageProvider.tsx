@@ -38,7 +38,7 @@ const db: GlobalState = {
       ],
     },
     '1': {
-      title: 'Квест 1',
+      title: 'Квест 2',
       address: 'Улица Пушкина, дом Колотушкина',
       description: 'yoooo',
       latlng: [59.939397, 30.321887],
