@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Button,
   Container,
@@ -9,24 +9,37 @@ import {
   Label,
 } from 'native-base';
 import { Image } from 'react-native';
+import { StorageContext } from 'navigation/StorageProvider';
 
-export const PlayQuestScreen = ({ navigation }) => {
-  const task = { imageUrl: 'jdjd' };
+export const PlayQuestScreen = ({ navigation, route }) => {
+  const { state } = useContext(StorageContext);
+  const { questId } = route.params;
+  let tasks = state.quests[questId].tasks;
+
+  const isLastTask = (): boolean => tasks.length === 0;
+
+  const _onPress = () => {
+    tasks = tasks.slice(1);
+    if (isLastTask()) {
+      navigation.navigate('Results');
+    }
+  };
+
   return (
     <Container>
       <Content>
         <Image
           source={{
-            uri: task.imageUrl,
+            uri: tasks[0].imageUrl,
           }}
           style={{ height: 500 }}
         />
-        <Text>{task.description}</Text>
+        <Text>{tasks[0].description}</Text>
         <Item inlineLabel>
           <Label>Ответ</Label>
           <Input />
         </Item>
-        <Button onPress={() => navigation.push('Play')}>
+        <Button onPress={_onPress}>
           <Text>Ответить</Text>
         </Button>
       </Content>

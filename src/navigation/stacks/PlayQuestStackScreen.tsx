@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { PlayQuestScreen } from 'screens/PlayQuestScreen';
+import { ResultsScreen } from 'screens/ResultsScreen';
 
 const PlayQuestStack = createStackNavigator();
 
