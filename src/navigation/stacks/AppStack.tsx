@@ -16,6 +16,7 @@ export const AppStack = () => (
       activeTintColor: colors.brown,
       inactiveTintColor: 'gray',
       labelStyle: typography.regularText,
+      style: { backgroundColor: colors.white },
     }}>
     <Tab.Screen
       name="Map"

@@ -3,6 +3,7 @@ import { Container, Content } from 'native-base';
 import QuestCard from 'components/QuestCard';
 import { useEffect, useState } from 'react';
 import { getQuestList } from 'api/storage-service';
+import { useTheme } from '@react-navigation/native';
 
 // type ProfileScreenNavigationProp = BottomTabNavigationProp<
 //   RootStackParamList,
@@ -20,7 +21,7 @@ export const QuestListScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <Container>
+    <Container style={{ backgroundColor: useTheme().colors.background }}>
       <Content>
         {quests.map((quest) => (
           <QuestCard {...quest} />

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useTheme } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import { AuthStack } from './stacks/AuthStack';
 import { AppStack } from './stacks/AppStack';
@@ -52,7 +52,7 @@ const RootStackScreen = () => {
 
 export const Routes = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={useTheme()}>
       <RootStackScreen />
     </NavigationContainer>
   );
