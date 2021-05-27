@@ -3,7 +3,7 @@ import { Container, Content } from 'native-base';
 import { LandmarkCard } from 'components/LandmarkCard';
 import { getLandmarkList } from 'api/storage-service';
 
-export const LandmarksScreen = () => {
+export const LandmarkListScreen = () => {
   const [landmarks, setLandmarks] = useState([]); //todo multiple similar hooks
   useEffect(() => {
     getLandmarkList().then((landmarkList) => setLandmarks(landmarkList));

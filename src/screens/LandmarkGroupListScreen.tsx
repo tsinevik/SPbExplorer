@@ -4,7 +4,7 @@ import { LandmarkGroupCard } from 'components/LandmarkGroupCard';
 import { useEffect, useState } from 'react';
 import { getLandmarkGroupList } from 'api/storage-service';
 
-export const LandmarkGroupsScreen = ({ navigation }) => {
+export const LandmarkGroupListScreen = ({ navigation }) => {
   const [groups, setGroups] = useState([]);
   useEffect(() => {
     getLandmarkGroupList().then((groupList) => setGroups(groupList));
