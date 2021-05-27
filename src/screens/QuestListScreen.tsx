@@ -13,7 +13,7 @@ import { getQuestList } from 'api/storage-service';
 //   navigation: ProfileScreenNavigationProp;
 // };
 
-export const QuestsScreen = ({ navigation }) => {
+export const QuestListScreen = ({ navigation }) => {
   const [quests, setQuests] = useState([]);
   useEffect(() => {
     getQuestList().then((questList) => setQuests(questList));

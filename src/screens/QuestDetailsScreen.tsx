@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
 export const QuestDetailsScreen = ({ route }) => {
   const params = route.params;
   const navigation = useNavigation();
+  const questId = 0;
   return (
     <Container>
       <Content>
@@ -76,7 +77,14 @@ export const QuestDetailsScreen = ({ route }) => {
             <Text>60</Text>
           </Right>
         </View>
-        <Button primary onPress={() => navigation.navigate('Modal')}>
+        <Button
+          primary
+          onPress={() =>
+            navigation.navigate('Modal', {
+              screen: 'Play',
+              params: { questId },
+            })
+          }>
           <Text>Начать</Text>
         </Button>
         <Button primary>
