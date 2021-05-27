@@ -4,45 +4,58 @@ import { MapStackScreen } from 'navigation/stacks/MapStackScreen';
 import { QuestStackScreen } from 'navigation/stacks/QuestStackScreen';
 import { LandmarkStackScreen } from 'navigation/stacks/LandmarkStackScreen';
 import { ProfileStackScreen } from 'navigation/stacks/ProfileStackScreen';
-import { StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { typography } from 'styles/typography';
+import { colors } from 'styles/colors';
 
 const Tab = createBottomTabNavigator();
 
-const styles = StyleSheet.create({
-  icon: {
-    width: 32,
-    height: 32,
-  },
-});
-
 export const AppStack = () => (
   <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-        let iconName;
-
-        if (route.name === 'Map') {
-          iconName = 'map';
-        } else if (route.name === 'Quests') {
-          iconName = 'question';
-        } else if (route.name === 'Landmarks') {
-          iconName = 'map-signs';
-        } else if (route.name === 'Profile') {
-          iconName = 'user-circle-o';
-        }
-
-        // You can return any component that you like here!
-        return <Icon name={iconName} size={size} color={color} />;
-      },
-    })}
     tabBarOptions={{
-      activeTintColor: 'tomato',
+      activeTintColor: colors.brown,
       inactiveTintColor: 'gray',
+      labelStyle: typography.regularText,
     }}>
-    <Tab.Screen name="Map" component={MapStackScreen} />
-    <Tab.Screen name="Quests" component={QuestStackScreen} />
-    <Tab.Screen name="Landmarks" component={LandmarkStackScreen} />
-    <Tab.Screen name="Profile" component={ProfileStackScreen} />
+    <Tab.Screen
+      name="Map"
+      component={MapStackScreen}
+      options={{
+        tabBarLabel: 'Карта',
+        tabBarIcon: ({ color, size }) => (
+          <Icon name="map-marked-alt" color={color} size={size} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Quests"
+      component={QuestStackScreen}
+      options={{
+        tabBarLabel: 'Квесты',
+        tabBarIcon: ({ color, size }) => (
+          <Icon name="question" color={color} size={size} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Landmarks"
+      component={LandmarkStackScreen}
+      options={{
+        tabBarLabel: 'Коллекция',
+        tabBarIcon: ({ color, size }) => (
+          <Icon name="landmark" color={color} size={size} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Profile"
+      component={ProfileStackScreen}
+      options={{
+        tabBarLabel: 'Профиль',
+        tabBarIcon: ({ color, size }) => (
+          <Icon name="user" color={color} size={size} solid />
+        ),
+      }}
+    />
   </Tab.Navigator>
 );
