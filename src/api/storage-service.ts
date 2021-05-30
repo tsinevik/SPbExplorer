@@ -2,7 +2,7 @@ import firestore from '@react-native-firebase/firestore';
 import { LatLng } from 'models/types';
 
 //todo вынести в общее состояние квесты и достопримечательности?
-export const getQuestList = async () => {
+export const getQuests = async () => {
   try {
     // return firestore().collection('quests').get();
     const questList = await firestore().collection('quests').get();
@@ -14,19 +14,23 @@ export const getQuestList = async () => {
 
 export const getQuest = async () => {};
 
-export const getLandmarkGroupList = async () => {
+export const getLandmarkGroups = async () => {
   try {
     const groupList = await firestore().collection('landmarkGroups').get();
-    return groupList.docs.map((group) => group.data());
+    return groupList.docs;
   } catch (e) {
     return ['No document exists'];
   }
 };
 
-export const getLandmarkList = async () => {
+export const getLandmarks = async (groupId: string) => {
   try {
-    const landmarkList = await firestore().collection('landmarks').get();
-    return landmarkList.docs.map((landmark) => landmark.data());
+    const landmarkList = await firestore()
+      .collection('landmarkGroups')
+      .doc(groupId)
+      .collection('landmarks')
+      .get();
+    return landmarkList.docs;
   } catch (e) {
     return ['No document exists'];
   }
