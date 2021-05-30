@@ -9,7 +9,7 @@ import ForgotPasswordSubmitScreen from 'screens/auth/ForgotPasswordSubmitScreen'
 export const AuthStack = () => {
   const Stack = createStackNavigator();
   return (
-    <Stack.Navigator initialRouteName="SIGN_IN">
+    <Stack.Navigator initialRouteName="SIGN_IN" headerMode="none">
       <Stack.Screen name="SIGN_IN" component={SignInScreen} />
       <Stack.Screen name="SIGN_UP" component={SignUpScreen} />
       <Stack.Screen name="FORGOT" component={ForgotPasswordScreen} />
