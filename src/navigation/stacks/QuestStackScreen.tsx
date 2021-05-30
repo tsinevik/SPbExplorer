@@ -11,7 +11,15 @@ export const QuestStackScreen = () => (
     screenOptions={{
       headerTitleStyle: styles.headerTitle,
     }}>
-    <QuestStack.Screen name="Quests" component={QuestListScreen} />
-    <QuestStack.Screen name="Details" component={QuestDetailsScreen} />
+    <QuestStack.Screen
+      name="Quests"
+      component={QuestListScreen}
+      options={{ title: 'Квесты' }}
+    />
+    <QuestStack.Screen
+      name="Details"
+      component={QuestDetailsScreen}
+      options={{ headerShown: false }}
+    />
   </QuestStack.Navigator>
 );

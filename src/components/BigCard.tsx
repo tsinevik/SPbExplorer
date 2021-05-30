@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
-import { Body, Card, CardItem, Text } from 'native-base';
+import { Card, CardItem } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from 'styles/styles';
 
@@ -12,7 +12,7 @@ const BigCard = ({ children, route, cardInfo }) => {
         <CardItem cardBody>
           <Image
             source={{
-              uri: cardInfo.image,
+              uri: cardInfo.imageUrl,
             }}
             style={styles.cardImage}
           />

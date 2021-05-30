@@ -1,15 +1,5 @@
 import React from 'react';
-import {
-  Body,
-  Button,
-  Container,
-  Content,
-  H1,
-  Left,
-  Right,
-  Icon,
-  Text,
-} from 'native-base';
+import { Button, Container, Content, H1, Icon, Text } from 'native-base';
 import Swiper from 'react-native-swiper';
 import { Image, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -61,7 +51,7 @@ export const QuestDetailsScreen = ({ route }) => {
             />
           </View>
         </Swiper>
-        <H1>{params.title}</H1>
+        <H1 style={{ fontFamily: 'Montserrat-Bold' }}>{params.title}</H1>
         <View style={styles.flexRow}>
           <Icon type="FontAwesome5" name="map-marker-alt" />
           <Text>{params.address}</Text>
@@ -92,7 +82,7 @@ export const QuestDetailsScreen = ({ route }) => {
             <Text>Начать</Text>
           </Button>
           <Button bordered>
-            <Text>Показать на карте</Text>
+            <Icon type="FontAwesome5" name="directions" />
           </Button>
         </View>
         <H1>Описание</H1>

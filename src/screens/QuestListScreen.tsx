@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Container, Content } from 'native-base';
 import QuestCard from 'components/QuestCard';
 import { useEffect, useState } from 'react';
-import { getQuestList } from 'api/storage-service';
+import { getQuests } from 'api/storage-service';
 import { useTheme } from '@react-navigation/native';
 
 // type ProfileScreenNavigationProp = BottomTabNavigationProp<
@@ -17,7 +17,7 @@ import { useTheme } from '@react-navigation/native';
 export const QuestListScreen = ({ navigation }) => {
   const [quests, setQuests] = useState([]);
   useEffect(() => {
-    getQuestList().then((questList) => setQuests(questList));
+    getQuests().then((questList) => setQuests(questList));
   }, []);
 
   return (

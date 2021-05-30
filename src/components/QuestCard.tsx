@@ -3,7 +3,7 @@ import {
   Body,
   Button,
   CardItem,
-  H2,
+  H1,
   Icon,
   Left,
   Right,
@@ -15,7 +15,7 @@ const QuestCard = (props) => {
   return (
     <BigCard route="Details" cardInfo={props}>
       <CardItem>
-        <H2>{props.title}</H2>
+        <H1>{props.title}</H1>
       </CardItem>
       <CardItem>
         <Left>

@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Content } from 'native-base';
 import { LandmarkCard } from 'components/LandmarkCard';
-import { getLandmarkList } from 'api/storage-service';
+import { getLandmarks } from 'api/storage-service';
+import { Landmark } from 'models/types';
 
-export const LandmarkListScreen = () => {
-  const [landmarks, setLandmarks] = useState([]); //todo multiple similar hooks
+export const LandmarkListScreen = ({ route }) => {
+  const groupId = route.params.id;
+  //todo multiple similar hooks
+  const [landmarks, setLandmarks] = useState<Landmark[]>([]);
   useEffect(() => {
-    getLandmarkList().then((landmarkList) => setLandmarks(landmarkList));
+    getLandmarks(groupId).then((queryLandmarks) => {
+      const landmarkList: Landmark[] = queryLandmarks.map((landmark) => ({
+        ...landmark.data(),
+      }));
+      setLandmarks(landmarkList);
+    });
   }, []);
 
   return (

@@ -1,24 +1,30 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { Button, CardItem, Left, Right } from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { CardItem, H2, Left, Right, Text } from 'native-base';
 import BigCard from 'components/BigCard';
+import { LandmarkGroup } from 'models/types';
 
-export const LandmarkGroupCard = (props) => {
+export const LandmarkGroupCard = (props: LandmarkGroup) => {
+  const visited = 49;
+  const completePercentage = Math.floor((visited * 100) / props.total);
+  const cardInfo = { id: props.id, name: props.name };
   return (
-    <BigCard route="Groups" cardInfo={props}>
-      <CardItem>
-        <Text>{props.title}</Text>
+    <BigCard route="Landmarks" cardInfo={cardInfo}>
+      <CardItem
+        style={{
+          borderBottomWidth: 1,
+          borderStyle: 'solid',
+          borderBottomColor: 'black',
+        }}>
+        <H2>{props.name}</H2>
       </CardItem>
       <CardItem>
         <Left>
-          <Button transparent>
-            <Icon name="thumbs-up" />
-            <Text>{props.total}</Text>
-          </Button>
+          <Text>{completePercentage}%</Text>
         </Left>
         <Right>
-          <Text>{props.exp}</Text>
+          <Text>
+            Вы посетили {visited} из {props.total} достопримечательностей
+          </Text>
         </Right>
       </CardItem>
     </BigCard>

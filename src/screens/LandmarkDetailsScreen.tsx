@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Content, H1, H2 } from 'native-base';
+import { Button, Container, Content, H1, Icon } from 'native-base';
 import Swiper from 'react-native-swiper';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
     height: 500,
     width: undefined,
     // flex: 1,
+  },
+  flexRow: {
+    flexDirection: 'row',
   },
 });
 
@@ -37,8 +40,15 @@ export const LandmarkDetailsScreen = ({ route }) => {
             />
           </View>
         </Swiper>
-        <H1>{params.title}</H1>
-        <H2>Описание</H2>
+        <H1>{params.name}</H1>
+        <View style={styles.flexRow}>
+          <Icon type="FontAwesome5" name="map-marker-alt" />
+          <Text>{params.address}</Text>
+        </View>
+        <Button bordered>
+          <Icon type="FontAwesome5" name="directions" />
+        </Button>
+        <H1>Историческая справка</H1>
         <Text>{params.description}</Text>
       </Content>
     </Container>
