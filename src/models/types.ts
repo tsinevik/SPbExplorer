@@ -41,6 +41,13 @@ export interface Landmark {
   imageUrl?: string;
 }
 
+export interface LandmarkGroup {
+  id: string;
+  name: string;
+  total: number;
+  imageUrl?: string;
+}
+
 export enum ActionType {
   INITIAL = 'INITIAL',
   UPDATE_FOG = 'UPDATE_FOG',
