@@ -1,15 +1,7 @@
 import React from 'react';
-import {
-  Body,
-  Button,
-  CardItem,
-  H1,
-  Icon,
-  Left,
-  Right,
-  Text,
-} from 'native-base';
+import { CardItem, H1 } from 'native-base';
 import BigCard from 'components/BigCard';
+import TextIcon from 'components/TextIcon';
 
 const QuestCard = (props) => {
   return (
@@ -18,36 +10,12 @@ const QuestCard = (props) => {
         <H1>{props.title}</H1>
       </CardItem>
       <CardItem>
-        <Left>
-          <Button transparent>
-            <Icon type="FontAwesome5" name="map-marker-alt" />
-            <Text>{props.address}</Text>
-          </Button>
-        </Left>
+        <TextIcon iconName="map-marker-alt" text={props.address} />
       </CardItem>
       <CardItem>
-        <Left>
-          <Button transparent>
-            <Icon type="FontAwesome5" name="clock" />
-            <Text>{props.duration} мин</Text>
-          </Button>
-        </Left>
-        <Body>
-          <Button transparent>
-            <Icon
-              type="FontAwesome5"
-              name="shoe-prints"
-              style={{ transform: [{ rotate: '-90deg' }] }}
-            />
-            <Text>{props.length} км</Text>
-          </Button>
-        </Body>
-        <Right>
-          <Button transparent>
-            <Icon type="FontAwesome5" name="graduation-cap" />
-            <Text>{props.exp}</Text>
-          </Button>
-        </Right>
+        <TextIcon iconName="clock" text={`${props.duration} мин`} />
+        <TextIcon iconName="shoe-prints" text={`${props.length} км`} rotate />
+        <TextIcon iconName="graduation-cap" text={props.exp} />
       </CardItem>
     </BigCard>
   );

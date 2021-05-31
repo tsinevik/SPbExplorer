@@ -2,19 +2,21 @@ import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import { Card, CardItem } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
-import { styles } from 'styles/styles';
+import { globalStyles } from 'styles/globalStyles';
 
 const BigCard = ({ children, route, cardInfo }) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate(route, cardInfo)}>
+    <TouchableOpacity
+      activeOpacity={0.9}
+      onPress={() => navigation.navigate(route, cardInfo)}>
       <Card>
         <CardItem cardBody>
           <Image
             source={{
               uri: cardInfo.imageUrl,
             }}
-            style={styles.cardImage}
+            style={globalStyles.cardImage}
           />
         </CardItem>
         {children}

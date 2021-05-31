@@ -2,23 +2,17 @@ import React from 'react';
 import { Button, Container, Content, H1, Icon } from 'native-base';
 import Swiper from 'react-native-swiper';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import TextIcon from 'components/TextIcon';
+import { globalStyles } from 'styles/globalStyles';
 
 const styles = StyleSheet.create({
   wrapper: {
     height: 500,
   },
-  image: {
-    height: 500,
-    width: undefined,
-    // flex: 1,
-  },
-  flexRow: {
-    flexDirection: 'row',
-  },
 });
 
 export const LandmarkDetailsScreen = ({ route }) => {
-  const params = route.params;
+  const landmark = route.params;
   return (
     <Container>
       <Content>
@@ -26,30 +20,27 @@ export const LandmarkDetailsScreen = ({ route }) => {
           <View>
             <Image
               source={{
-                uri: params.imageUrl,
+                uri: landmark.imageUrl,
               }}
-              style={styles.image}
+              style={globalStyles.detailsImage}
             />
           </View>
           <View>
             <Image
               source={{
-                uri: params.imageUrl,
+                uri: landmark.imageUrl,
               }}
-              style={styles.image}
+              style={globalStyles.detailsImage}
             />
           </View>
         </Swiper>
-        <H1>{params.name}</H1>
-        <View style={styles.flexRow}>
-          <Icon type="FontAwesome5" name="map-marker-alt" />
-          <Text>{params.address}</Text>
-        </View>
+        <H1>{landmark.name}</H1>
+        <TextIcon iconName={'map-marker-alt'} text={landmark.address} />
         <Button bordered>
           <Icon type="FontAwesome5" name="directions" />
         </Button>
         <H1>Историческая справка</H1>
-        <Text>{params.description}</Text>
+        <Text>{landmark.description}</Text>
       </Content>
     </Container>
   );

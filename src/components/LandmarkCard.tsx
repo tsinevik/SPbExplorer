@@ -3,34 +3,40 @@ import {
   Button,
   Card,
   CardItem,
-  H1,
+  H2,
   Icon,
   Left,
   Right,
   Text,
   View,
 } from 'native-base';
-import { TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import TextIcon from 'components/TextIcon';
+
+const styles = StyleSheet.create({
+  wrapper: {
+    justifyContent: 'space-between',
+  },
+  gap: {
+    height: 45,
+    justifyContent: 'space-between',
+  },
+});
 
 export const LandmarkCard = (props) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity onPress={() => navigation.navigate('Details', props)}>
       <Card>
-        <CardItem>
-          <Left>
-            <H1>{props.name}</H1>
-            <View>
-              <Icon type="FontAwesome5" name="map-marker-alt" />
-              <Text>{props.address}</Text>
-            </View>
-          </Left>
-          <Right>
-            <Button bordered>
-              <Icon type="FontAwesome5" name="directions" />
-            </Button>
-          </Right>
+        <CardItem style={styles.wrapper}>
+          <View style={styles.gap}>
+            <H2>{props.name}</H2>
+            <TextIcon iconName={'map-marker-alt'} text={props.address} />
+          </View>
+          <Button bordered large>
+            <Icon type="FontAwesome5" name="directions" />
+          </Button>
         </CardItem>
       </Card>
     </TouchableOpacity>
