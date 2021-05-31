@@ -1,10 +1,6 @@
-import { StyleSheet } from 'react-native';
-
-export const typography = StyleSheet.create({
-  regularText: {
-    fontFamily: 'Gill Sans',
-  },
-  headingText: {
-    fontFamily: 'Montserrat',
-  },
-});
+export const typography = {
+  regularFont: 'Gill Sans',
+  headingFont: 'Montserrat',
+  boldHeadingFont: 'Montserrat-Bold',
+  bigNumbersFont: 'Rockwell',
+};

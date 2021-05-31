@@ -3,14 +3,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { LandmarkGroupListScreen } from 'screens/LandmarkGroupListScreen';
 import { LandmarkListScreen } from 'screens/LandmarkListScreen';
 import { LandmarkDetailsScreen } from 'screens/LandmarkDetailsScreen';
-import { styles } from 'styles/styles';
+import { globalStyles } from 'styles/globalStyles';
 
 const LandmarkStack = createStackNavigator();
 
 export const LandmarkStackScreen = () => (
   <LandmarkStack.Navigator
     screenOptions={{
-      headerTitleStyle: styles.headerTitle,
+      headerTitleStyle: globalStyles.headerTitle,
     }}>
     <LandmarkStack.Screen
       name="Groups"

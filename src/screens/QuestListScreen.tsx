@@ -21,7 +21,7 @@ export const QuestListScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <Container style={{ backgroundColor: useTheme().colors.background }}>
+    <Container>
       <Content>
         {quests.map((quest) => (
           <QuestCard {...quest} />

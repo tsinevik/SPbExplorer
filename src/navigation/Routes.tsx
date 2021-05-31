@@ -8,6 +8,9 @@ import Loading from './Loading';
 import { createStackNavigator } from '@react-navigation/stack';
 import { PlayQuestStackScreen } from 'navigation/stacks/PlayQuestStackScreen';
 import { SPbTheme } from 'styles/theme';
+import { StyleProvider } from 'native-base';
+import getTheme from '../../native-base-theme/components';
+import commonColor from '../../native-base-theme/variables/commonColor';
 
 const RootStack = createStackNavigator();
 
@@ -53,8 +56,10 @@ const RootStackScreen = () => {
 
 export const Routes = () => {
   return (
-    <NavigationContainer theme={SPbTheme}>
-      <RootStackScreen />
-    </NavigationContainer>
+    <StyleProvider style={getTheme(commonColor)}>
+      <NavigationContainer theme={SPbTheme}>
+        <RootStackScreen />
+      </NavigationContainer>
+    </StyleProvider>
   );
 };

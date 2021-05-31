@@ -1,9 +1,9 @@
 export const colors = {
-  green: '#5E776B',
-  brown: '#886B57',
-  black: '#0D1821',
-  white: '#F5F5F5',
+  primary: '#886B57',
+  bgPrimary: '#F2ECE3',
+  bgSecondary: '#F5F5F5',
+  header: '#5E776B',
+  fontPrimary: '#0D1821',
   gray: '#A2A4AF',
-  alabaster: '#F2ECE3',
-  beige: '#E8C087',
+  progress: '#E8C087',
 };

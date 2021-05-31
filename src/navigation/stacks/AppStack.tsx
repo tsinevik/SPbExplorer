@@ -5,18 +5,28 @@ import { QuestStackScreen } from 'navigation/stacks/QuestStackScreen';
 import { LandmarkStackScreen } from 'navigation/stacks/LandmarkStackScreen';
 import { ProfileStackScreen } from 'navigation/stacks/ProfileStackScreen';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { typography } from 'styles/typography';
 import { colors } from 'styles/colors';
+import { StyleSheet } from 'react-native';
+import { typography } from 'styles/typography';
 
 const Tab = createBottomTabNavigator();
+
+const styles = StyleSheet.create({
+  label: {
+    fontFamily: typography.regularFont,
+  },
+  tab: {
+    backgroundColor: colors.bgSecondary,
+  },
+});
 
 export const AppStack = () => (
   <Tab.Navigator
     tabBarOptions={{
-      activeTintColor: colors.brown,
+      activeTintColor: colors.primary,
       inactiveTintColor: 'gray',
-      labelStyle: typography.regularText,
-      style: { backgroundColor: colors.white },
+      labelStyle: styles.label,
+      style: styles.tab,
     }}>
     <Tab.Screen
       name="Map"

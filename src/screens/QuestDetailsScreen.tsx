@@ -51,7 +51,7 @@ export const QuestDetailsScreen = ({ route }) => {
             />
           </View>
         </Swiper>
-        <H1 style={{ fontFamily: 'Montserrat-Bold' }}>{params.title}</H1>
+        <H1>{params.title}</H1>
         <View style={styles.flexRow}>
           <Icon type="FontAwesome5" name="map-marker-alt" />
           <Text>{params.address}</Text>
