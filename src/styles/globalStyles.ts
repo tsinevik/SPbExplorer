@@ -13,8 +13,17 @@ export const globalStyles = StyleSheet.create({
     borderTopRightRadius: 10,
   },
   detailsImage: {
-    height: 500,
+    height: 300,
     width: undefined,
+  },
+  swiper: {
+    height: 300,
+  },
+  content: {
+    padding: 25,
+  },
+  detailsHeading: {
+    marginBottom: 7,
   },
   flexRow: {
     flexDirection: 'row',
@@ -28,5 +37,18 @@ export const globalStyles = StyleSheet.create({
   },
   smallText: {
     fontSize: 16,
+  },
+  regularText: {
+    fontSize: 18,
+  },
+  input: {
+    lineHeight: 28,
+    marginBottom: 20,
+  },
+  progressBar: {
+    alignSelf: 'center',
+    color: colors.fontPrimary,
+    position: 'absolute',
+    top: 0.5,
   },
 });

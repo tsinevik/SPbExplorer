@@ -10,12 +10,17 @@ const QuestCard = (props) => {
         <H1>{props.title}</H1>
       </CardItem>
       <CardItem>
-        <TextIcon iconName="map-marker-alt" text={props.address} />
+        <TextIcon iconName="map-marker-alt" text={props.address} small />
       </CardItem>
       <CardItem>
-        <TextIcon iconName="clock" text={`${props.duration} мин`} />
-        <TextIcon iconName="shoe-prints" text={`${props.length} км`} rotate />
-        <TextIcon iconName="graduation-cap" text={props.exp} />
+        <TextIcon iconName="clock" text={`${props.duration} мин`} small />
+        <TextIcon
+          iconName="shoe-prints"
+          text={`${props.length} км`}
+          rotate
+          small
+        />
+        <TextIcon iconName="graduation-cap" text={props.exp} small />
       </CardItem>
     </BigCard>
   );

@@ -3,90 +3,89 @@ import { Button, Container, Content, H1, Icon, Text } from 'native-base';
 import Swiper from 'react-native-swiper';
 import { Image, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import TextIcon from 'components/TextIcon';
+import { globalStyles } from 'styles/globalStyles';
 
 const styles = StyleSheet.create({
-  wrapper: {
-    height: 500,
+  header: {
+    marginBottom: 40,
   },
-  image: {
-    height: 500,
-    width: undefined,
-    // flex: 1,
+  info: {
+    ...globalStyles.flexRow,
+    marginVertical: 15,
   },
-  flexRow: {
-    flexDirection: 'row',
+  buttons: {
+    ...globalStyles.flexRow,
   },
 });
 
 export const QuestDetailsScreen = ({ route }) => {
-  const params = route.params;
+  const quest = route.params;
   const navigation = useNavigation();
   const questId = 0;
   return (
     <Container>
       <Content>
-        <Swiper style={styles.wrapper}>
+        <Swiper style={globalStyles.swiper}>
           <View>
             <Image
               source={{
-                uri: params.imageUrl,
+                uri: quest.imageUrl,
               }}
-              style={styles.image}
+              style={globalStyles.detailsImage}
             />
           </View>
           <View>
             <Image
               source={{
-                uri: params.imageUrl,
+                uri: quest.imageUrl,
               }}
-              style={styles.image}
+              style={globalStyles.detailsImage}
             />
           </View>
           <View>
             <Image
               source={{
-                uri: params.imageUrl,
+                uri: quest.imageUrl,
               }}
-              style={styles.image}
+              style={globalStyles.detailsImage}
             />
           </View>
         </Swiper>
-        <H1>{params.title}</H1>
-        <View style={styles.flexRow}>
-          <Icon type="FontAwesome5" name="map-marker-alt" />
-          <Text>{params.address}</Text>
-        </View>
-        <View style={styles.flexRow}>
-          <View style={styles.flexRow}>
-            <Icon type="FontAwesome5" name="clock" />
-            <Text>{params.duration} мин</Text>
+        <View style={globalStyles.content}>
+          <View style={styles.header}>
+            <H1 style={globalStyles.detailsHeading}>{quest.title}</H1>
+            <TextIcon iconName="map-marker-alt" text={quest.address} />
+            <View style={styles.info}>
+              <TextIcon iconName="clock" text={`${quest.duration} мин`} />
+              <TextIcon
+                iconName="shoe-prints"
+                text={`${quest.length} км`}
+                rotate
+              />
+              <TextIcon iconName="graduation-cap" text={quest.exp} />
+            </View>
+            <View style={globalStyles.flexRow}>
+              <Button
+                block
+                large
+                style={{ flex: 1, marginRight: 10, }}
+                onPress={() =>
+                  navigation.navigate('Modal', {
+                    screen: 'Play',
+                    params: { questId },
+                  })
+                }>
+                <Text>Начать</Text>
+              </Button>
+              <Button bordered large>
+                <Icon type="FontAwesome5" name="directions" />
+              </Button>
+            </View>
           </View>
-          <View style={styles.flexRow}>
-            <Icon type="FontAwesome5" name="shoe-prints" />
-            <Text>{params.length} км</Text>
-          </View>
-          <View style={styles.flexRow}>
-            <Icon type="FontAwesome5" name="graduation-cap" />
-            <Text>{params.exp}</Text>
-          </View>
+          <H1 style={globalStyles.detailsHeading}>Описание</H1>
+          <Text>{quest.description}</Text>
         </View>
-        <View style={styles.flexRow}>
-          <Button
-            primary
-            onPress={() =>
-              navigation.navigate('Modal', {
-                screen: 'Play',
-                params: { questId },
-              })
-            }>
-            <Text>Начать</Text>
-          </Button>
-          <Button bordered>
-            <Icon type="FontAwesome5" name="directions" />
-          </Button>
-        </View>
-        <H1>Описание</H1>
-        <Text>{params.description}</Text>
       </Content>
     </Container>
   );

@@ -7,7 +7,7 @@ import { colors } from 'styles/colors';
 import { typography } from 'styles/typography';
 
 const styles = StyleSheet.create({
-  wrapper: {
+  swiper: {
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     fontSize: 48,
     paddingTop: 5,
   },
-  description: {
+  info: {
     alignSelf: 'flex-start',
     marginRight: 10,
     marginTop: -1,
@@ -37,9 +37,9 @@ export const LandmarkGroupCard = (props: LandmarkGroup) => {
       <CardItem style={styles.divider}>
         <H2>{props.name}</H2>
       </CardItem>
-      <CardItem style={styles.wrapper}>
+      <CardItem style={styles.swiper}>
         <Text style={styles.percentage}>{completePercentage}%</Text>
-        <Text style={styles.description}>
+        <Text style={styles.info}>
           Вы посетили {visited} из {props.total} достопримечательностей
         </Text>
       </CardItem>

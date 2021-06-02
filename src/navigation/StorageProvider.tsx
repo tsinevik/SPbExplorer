@@ -15,21 +15,21 @@ const db: GlobalState = {
     '0': {
       title: 'Квест 1',
       address: 'Улица Пушкина, дом Колотушкина',
-      description: 'yoooo',
+      info: 'yoooo',
       latlng: [59.954353, 30.322607],
       completed: false,
       imageUrl:
         'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
       tasks: [
         {
-          description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+          info: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
           imageUrl:
             'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
           type: 'short-answer',
           answer: 'yo1',
         },
         {
-          description: 'lorem ipsуum lorem ipsum lorem ipsum lorem ipsum',
+          info: 'lorem ipsуum lorem ipsum lorem ipsum lorem ipsum',
           imageUrl:
             'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
           type: 'short-answer',
@@ -40,21 +40,21 @@ const db: GlobalState = {
     '1': {
       title: 'Квест 2',
       address: 'Улица Пушкина, дом Колотушкина',
-      description: 'yoooo',
+      info: 'yoooo',
       latlng: [59.939397, 30.321887],
       completed: false,
       imageUrl:
         'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
       tasks: [
         {
-          description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+          info: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
           imageUrl:
             'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
           type: 'short-answer',
           answer: 'yo1',
         },
         {
-          description: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+          info: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
           imageUrl:
             'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
           type: 'short-answer',

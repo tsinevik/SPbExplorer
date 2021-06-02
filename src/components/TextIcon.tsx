@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 4,
   },
-  wrapper: {
+  swiper: {
     ...globalStyles.flexRow,
     marginRight: 15,
   },
@@ -16,14 +16,16 @@ const styles = StyleSheet.create({
 const TextIcon = ({
   iconName,
   text,
+  small = false,
   rotate = false,
 }: {
   iconName: string;
   text: string;
+  small?: boolean;
   rotate?: boolean;
 }) => {
   return (
-    <View style={styles.wrapper}>
+    <View style={styles.swiper}>
       <Icon
         type="FontAwesome5"
         name={iconName}
@@ -32,7 +34,9 @@ const TextIcon = ({
           transform: [{ rotate: rotate ? '-90deg' : '0deg' }],
         }}
       />
-      <Text style={globalStyles.smallText}>{text}</Text>
+      <Text style={small ? globalStyles.smallText : globalStyles.regularText}>
+        {text}
+      </Text>
     </View>
   );
 };

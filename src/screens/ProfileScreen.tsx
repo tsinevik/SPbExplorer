@@ -3,11 +3,10 @@ import * as Progress from 'react-native-progress';
 import {
   Button,
   Card,
-  CardItem,
   Container,
   Content,
   H1,
-  Right,
+  Icon,
   Text,
   View,
 } from 'native-base';
@@ -17,9 +16,51 @@ import UserAvatar from 'react-native-user-avatar';
 import { colors } from 'styles/colors';
 import { StyleSheet } from 'react-native';
 import { typography } from 'styles/typography';
+import { globalStyles } from 'styles/globalStyles';
+import Statistic from 'components/Statistic';
 
 const styles = StyleSheet.create({
-  progress: { fontFamily: typography.bigNumbersFont },
+  progress: {
+    color: colors.fontPrimary,
+    fontFamily: typography.bigNumbersFont,
+    fontSize: 36,
+    paddingTop: 10,
+  },
+  settings: {
+    alignSelf: 'flex-end',
+  },
+  cogIcon: {
+    color: colors.primary,
+    fontSize: 40,
+    marginRight: 10,
+  },
+  mainInfo: {
+    alignItems: 'center',
+    marginBottom: 40,
+  },
+  name: {
+    marginVertical: 15,
+  },
+  textCard: {
+    margin: 10,
+  },
+  cardTitle: {
+    paddingLeft: 10,
+  },
+  card: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  statGrid: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  showAll: {
+    alignSelf: 'flex-end',
+  },
+  cardItem: {
+    marginBottom: 16,
+  },
 });
 
 export const ProfileScreen = ({ navigation }) => {
@@ -34,72 +75,94 @@ export const ProfileScreen = ({ navigation }) => {
   };
 
   const friends = [
-    { name: 'Vasily Kekich', imageUrl: '' },
-    { name: 'Viktor Timokhov', imageUrl: '' },
+    { name: 'Наталья Янковская', imageUrl: '' },
+    { name: 'Виктор Тимохов', imageUrl: '' },
   ];
 
   return (
     <Container>
       <Content>
-        <UserAvatar size={60} name={user.name} src={user.imageUrl} />
-        <H1>{user.name}</H1>
-        <H1>Уровень</H1>
-        <View>
-          <H1>{user.level}</H1>
+        <Button
+          large
+          transparent
+          style={styles.settings}
+          onPress={() => navigation.navigate('Settings', { user })}>
+          <Icon type="FontAwesome5" name="cog" style={styles.cogIcon} />
+        </Button>
+        <View style={styles.mainInfo}>
+          <UserAvatar size={170} name={user.name} src={user.imageUrl} />
+          <H1 style={styles.name}>{user.name}</H1>
+          <H1 style={globalStyles.detailsHeading}>Уровень</H1>
+          <Progress.Circle
+            size={120}
+            progress={0.5}
+            thickness={5}
+            showsText={true}
+            formatText={() => user.level}
+            color={colors.progress}
+            unfilledColor={colors.gray}
+            borderColor={'rgba(0,0,0,0)'}
+            fill={colors.bgSecondary}
+            textStyle={styles.progress}
+          />
         </View>
-        <Progress.Circle
-          size={90}
-          progress={0.5}
-          thickness={3}
-          showsText={true}
-          formatText={() => user.level}
-          color={colors.progress}
-          unfilledColor={colors.gray}
-          borderColor={'rgba(0,0,0,0)'}
-          fill={colors.bgSecondary}
-          textStyle={styles.progress}
-        />
-        <H1>Статистика</H1>
-        <Card>
-          <CardItem style={{ borderWidth: 2 }}>
-            <Text>{user.completedQuests}</Text>
-            <Text>Пройдено квестов</Text>
-          </CardItem>
-          <CardItem style={{ borderWidth: 2 }}>
-            <Text>{user.experience}</Text>
-            <Text>Всего опыта</Text>
-          </CardItem>
-          <CardItem style={{ borderWidth: 2 }}>
-            <Text>{user.visitedLandmarks}</Text>
-            <Text>Посещено мест</Text>
-          </CardItem>
-          <CardItem style={{ borderWidth: 2 }}>
-            <Text>{user.cityKnowledge}</Text>
-            <Text>% изученности города</Text>
-          </CardItem>
-        </Card>
-        <H1>Друзья</H1>
-        <Card>
-          <Friend name={friends[0].name} imageUrl={friends[0].imageUrl} />
-          <Friend name={friends[1].name} imageUrl={friends[1].imageUrl} />
-          <CardItem>
-            <Button bordered>
+        <View style={styles.textCard}>
+          <H1 style={styles.cardTitle}>Статистика</H1>
+          <Card style={styles.card}>
+            <View style={[styles.statGrid, styles.cardItem]}>
+              <Statistic
+                label="Пройдено квестов"
+                value={user.completedQuests}
+              />
+              <Statistic label="Всего опыта" value={user.experience} />
+            </View>
+            <View style={styles.statGrid}>
+              <Statistic label="Посещено мест" value={user.visitedLandmarks} />
+              <Statistic
+                label="% изученности города"
+                value={user.cityKnowledge}
+              />
+            </View>
+          </Card>
+        </View>
+        <View style={styles.textCard}>
+          <H1 style={styles.cardTitle}>Друзья</H1>
+          <Card style={styles.card}>
+            <Friend
+              name={friends[0].name}
+              imageUrl={friends[0].imageUrl}
+              style={styles.cardItem}
+            />
+            <Friend
+              name={friends[1].name}
+              imageUrl={friends[1].imageUrl}
+              style={styles.cardItem}
+            />
+            <Button bordered style={styles.showAll}>
               <Text>Все</Text>
             </Button>
-          </CardItem>
-        </Card>
-        <H1>Достижения</H1>
-        <Card>
-          <Achievement task={'Пройти 4 квеста'} total={4} progress={2} />
-          <Achievement task={'Пройти 4 квеста'} total={4} progress={2} />
-          <CardItem>
-            <Right>
-              <Button bordered>
-                <Text>Все</Text>
-              </Button>
-            </Right>
-          </CardItem>
-        </Card>
+          </Card>
+        </View>
+        <View style={styles.textCard}>
+          <H1 style={styles.cardTitle}>Достижения</H1>
+          <Card style={styles.card}>
+            <Achievement
+              task={'Пройти 4 квеста'}
+              total={4}
+              progress={2}
+              style={styles.cardItem}
+            />
+            <Achievement
+              task={'Пройти 4 квеста'}
+              total={4}
+              progress={2}
+              style={styles.cardItem}
+            />
+            <Button bordered style={styles.showAll}>
+              <Text>Все</Text>
+            </Button>
+          </Card>
+        </View>
       </Content>
     </Container>
   );

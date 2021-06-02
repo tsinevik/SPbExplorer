@@ -15,24 +15,25 @@ import { useNavigation } from '@react-navigation/native';
 import TextIcon from 'components/TextIcon';
 
 const styles = StyleSheet.create({
-  wrapper: {
+  swiper: {
     justifyContent: 'space-between',
   },
   gap: {
-    height: 45,
-    justifyContent: 'space-between',
+    marginBottom: 10,
   },
 });
 
 export const LandmarkCard = (props) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Details', props)}>
+    <TouchableOpacity
+      activeOpacity={0.6}
+      onPress={() => navigation.navigate('Details', props)}>
       <Card>
-        <CardItem style={styles.wrapper}>
-          <View style={styles.gap}>
-            <H2>{props.name}</H2>
-            <TextIcon iconName={'map-marker-alt'} text={props.address} />
+        <CardItem style={styles.swiper}>
+          <View>
+            <H2 style={styles.gap}>{props.name}</H2>
+            <TextIcon iconName={'map-marker-alt'} text={props.address} small />
           </View>
           <Button bordered large>
             <Icon type="FontAwesome5" name="directions" />

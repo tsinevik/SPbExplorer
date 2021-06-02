@@ -1470,6 +1470,11 @@ abort-controller@^3.0.0:
   dependencies:
     event-target-shim "^5.0.0"
 
+abortcontroller-polyfill@^1.4.0:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/abortcontroller-polyfill/-/abortcontroller-polyfill-1.7.3.tgz#1b5b487bd6436b5b764fd52a612509702c3144b5"
+  integrity sha512-zetDJxd89y3X99Kvo4qFx8GKlt6GsvN3UcRZHwU6iFA/0KiOmhkTVhe8oRoTBiTVPZu09x3vCra47+w8Yz1+2Q==
+
 absolute-path@^0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/absolute-path/-/absolute-path-0.0.0.tgz#a78762fbdadfb5297be99b15d35a785b2f095bf7"
@@ -6074,11 +6079,11 @@ react-native-swiper@^1.6.0:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-user-avatar@^1.0.7:
+"react-native-user-avatar@https://github.com/tsinevik/react-native-user-avatar/tarball/3174cdbb322af23f72f6fb480a4115c6c67e3f7e":
   version "1.0.7"
-  resolved "https://registry.yarnpkg.com/react-native-user-avatar/-/react-native-user-avatar-1.0.7.tgz#be7a3912e3babad8780c8b83cff9a7e14d15cff7"
-  integrity sha512-ROWoH0yqHbs6yc5hruEI5n0yjpnw5fNAiEwTiVHbqOSPsgKU4Zwy+Ftr/8EaFzIrVRqxY7QXXZY/EWUll1YY+Q==
+  resolved "https://github.com/tsinevik/react-native-user-avatar/tarball/3174cdbb322af23f72f6fb480a4115c6c67e3f7e#04961d35d20669aba32e9caba7d4327dbd82f416"
   dependencies:
+    abortcontroller-polyfill "^1.4.0"
     initials "^3.0.1"
     prop-types "^15.7.2"
 

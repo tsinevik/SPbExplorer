@@ -33,7 +33,7 @@
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.14.0",
     "react-native-swiper": "^1.6.0",
-    "react-native-user-avatar": "^1.0.7",
+    "react-native-user-avatar": "https://github.com/tsinevik/react-native-user-avatar/tarball/3174cdbb322af23f72f6fb480a4115c6c67e3f7e",
     "react-native-vector-icons": "^8.1.0",
     "react-native-webview": "^11.0.0"
   },

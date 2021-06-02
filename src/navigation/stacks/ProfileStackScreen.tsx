@@ -9,32 +9,14 @@ const ProfileStack = createStackNavigator();
 
 export const ProfileStackScreen = () => (
   <ProfileStack.Navigator
+    headerMode="none"
     screenOptions={{
       headerTitleStyle: globalStyles.headerTitle,
     }}>
-    <ProfileStack.Screen
-      name="Profile"
-      component={ProfileScreen}
-      options={({ navigation }) => ({
-        headerRight: () => (
-          <Icon
-            type="FontAwesome5"
-            name="cog"
-            onPress={() => navigation.navigate('Settings')}
-          />
-        ),
-      })}
-    />
-    <ProfileStack.Screen
-      name="Settings"
-      component={SettingsScreen}
-      options={({ navigation }) => ({
-        headerRight: () => (
-          <Button onPress={() => navigation.goBack()} transparent>
-            <Text>Сохранить</Text>
-          </Button>
-        ),
-      })}
-    />
+    <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+    <ProfileStack.Screen name="Settings" component={SettingsScreen} />
+    <ProfileStack.Screen name="Achievements" component={SettingsScreen} />
+    <ProfileStack.Screen name="Friends" component={SettingsScreen} />
+    <ProfileStack.Screen name="Password" component={SettingsScreen} />
   </ProfileStack.Navigator>
 );

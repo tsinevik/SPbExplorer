@@ -64,3 +64,5 @@ export type StorageCtx = {
 export type LatLng = [number, number];
 
 export type ChildProps = { children: React.ReactNode };
+
+export type StyleProps = { [key: string]: Object } | number | false | null;
