@@ -10,10 +10,7 @@ export const LandmarkListScreen = ({ route }) => {
   const [landmarks, setLandmarks] = useState<Landmark[]>([]);
   useEffect(() => {
     getLandmarks(groupId).then((queryLandmarks) => {
-      const landmarkList: Landmark[] = queryLandmarks.map((landmark) => ({
-        ...landmark.data(),
-      }));
-      setLandmarks(landmarkList);
+      setLandmarks(queryLandmarks as Landmark[]);
     });
   }, []);
 
@@ -22,7 +19,7 @@ export const LandmarkListScreen = ({ route }) => {
       <Content>
         {/*todo carry to common function*/}
         {landmarks.map((landmark) => (
-          <LandmarkCard {...landmark} />
+          <LandmarkCard key={landmark.id} {...landmark} />
         ))}
       </Content>
     </Container>

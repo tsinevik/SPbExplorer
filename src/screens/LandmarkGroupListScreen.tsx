@@ -9,11 +9,7 @@ export const LandmarkGroupListScreen = ({ navigation }) => {
   const [groups, setGroups] = useState<LandmarkGroup[]>([]);
   useEffect(() => {
     getLandmarkGroups().then((queryGroups) => {
-      const landmarkGroups: LandmarkGroup[] = queryGroups.map((group) => ({
-        ...group.data(),
-        id: group.id,
-      }));
-      setGroups(landmarkGroups);
+      setGroups(queryGroups as LandmarkGroup[]);
     });
   }, []);
 
@@ -21,7 +17,7 @@ export const LandmarkGroupListScreen = ({ navigation }) => {
     <Container>
       <Content>
         {groups.map((group) => (
-          <LandmarkGroupCard {...group} />
+          <LandmarkGroupCard key={group.id} {...group} />
         ))}
       </Content>
     </Container>

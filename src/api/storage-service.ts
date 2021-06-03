@@ -6,7 +6,10 @@ export const getQuests = async () => {
   try {
     // return firestore().collection('quests').get();
     const questList = await firestore().collection('quests').get();
-    return questList.docs.map((quest) => quest.data());
+    return questList.docs.map((quest) => ({
+      ...quest.data(),
+      id: quest.id,
+    }));
   } catch (e) {
     return ['No document exists'];
   }
@@ -17,7 +20,10 @@ export const getQuest = async () => {};
 export const getLandmarkGroups = async () => {
   try {
     const groupList = await firestore().collection('landmarkGroups').get();
-    return groupList.docs;
+    return groupList.docs.map((group) => ({
+      ...group.data(),
+      id: group.id,
+    }));
   } catch (e) {
     return ['No document exists'];
   }
@@ -25,12 +31,15 @@ export const getLandmarkGroups = async () => {
 
 export const getLandmarks = async (groupId: string) => {
   try {
-    const landmarkList = await firestore()
+    const landmarks = await firestore()
       .collection('landmarkGroups')
       .doc(groupId)
       .collection('landmarks')
       .get();
-    return landmarkList.docs;
+    return landmarks.docs.map((landmark) => ({
+      ...landmark.data(),
+      id: landmark.id,
+    }));
   } catch (e) {
     return ['No document exists'];
   }

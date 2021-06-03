@@ -4,6 +4,7 @@ import QuestCard from 'components/QuestCard';
 import { useEffect, useState } from 'react';
 import { getQuests } from 'api/storage-service';
 import { useTheme } from '@react-navigation/native';
+import { Quest } from 'models/types';
 
 // type ProfileScreenNavigationProp = BottomTabNavigationProp<
 //   RootStackParamList,
@@ -15,16 +16,18 @@ import { useTheme } from '@react-navigation/native';
 // };
 
 export const QuestListScreen = ({ navigation }) => {
-  const [quests, setQuests] = useState([]);
+  const [quests, setQuests] = useState<Quest[]>([]);
   useEffect(() => {
-    getQuests().then((questList) => setQuests(questList));
+    getQuests().then((queryQuests) => {
+      setQuests(queryQuests as Quest[]);
+    });
   }, []);
 
   return (
     <Container>
       <Content>
         {quests.map((quest) => (
-          <QuestCard {...quest} />
+          <QuestCard key={quest.id} {...quest} />
         ))}
       </Content>
     </Container>

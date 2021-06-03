@@ -14,6 +14,7 @@ export interface GlobalState {
 }
 
 export interface Quest {
+  id: string;
   title: string;
   address: string;
   latlng: LatLng;
@@ -34,6 +35,7 @@ export interface Task {
 type TaskType = 'short-answer' | 'multiple-choice';
 
 export interface Landmark {
+  id: string;
   name: string;
   latlng: LatLng;
   visited: boolean;
