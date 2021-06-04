@@ -20,7 +20,7 @@ const TextIcon = ({
   rotate = false,
 }: {
   iconName: string;
-  text: string;
+  text: string | number;
   small?: boolean;
   rotate?: boolean;
 }) => {

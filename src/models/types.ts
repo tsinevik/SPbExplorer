@@ -9,6 +9,7 @@ type Payload = string | LatLng | object;
 
 export interface GlobalState {
   quests: { [key: string]: Quest };
+  landmarkGroups: { [key: string]: LandmarkGroup };
   landmarks: { [key: string]: Landmark };
   fog: LatLng[];
 }
@@ -21,6 +22,9 @@ export interface Quest {
   description: string;
   imageUrl: string;
   completed: boolean;
+  duration: number;
+  length: number;
+  exp: number;
   tasks: Task[];
 }
 
@@ -36,7 +40,9 @@ type TaskType = 'short-answer' | 'multiple-choice';
 
 export interface Landmark {
   id: string;
+  groupId: string;
   name: string;
+  address: string;
   latlng: LatLng;
   visited: boolean;
   description?: string;

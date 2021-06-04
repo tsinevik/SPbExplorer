@@ -1,17 +1,9 @@
-import React from 'react';
-import {
-  Button,
-  Container,
-  Content,
-  H1,
-  Icon,
-  View,
-  Text,
-} from 'native-base';
-import Swiper from 'react-native-swiper';
+import React, { useContext } from 'react';
+import { Button, Container, Content, H1, Icon, View, Text } from 'native-base';
 import TextIcon from 'components/TextIcon';
 import { globalStyles } from 'styles/globalStyles';
 import { Image, StyleSheet } from 'react-native';
+import { StorageContext } from 'navigation/StorageProvider';
 
 const styles = StyleSheet.create({
   header: {
@@ -22,11 +14,13 @@ const styles = StyleSheet.create({
 });
 
 export const LandmarkDetailsScreen = ({ route }) => {
-  const landmark = route.params;
+  const { state } = useContext(StorageContext);
+  const id = route.params.id;
+  const landmark = state.landmarks[id];
   return (
     <Container>
       <Content>
-        <Swiper style={globalStyles.swiper}>
+        {landmark.hasOwnProperty('imageUrl') && (
           <View>
             <Image
               source={{
@@ -35,15 +29,7 @@ export const LandmarkDetailsScreen = ({ route }) => {
               style={globalStyles.detailsImage}
             />
           </View>
-          <View>
-            <Image
-              source={{
-                uri: landmark.imageUrl,
-              }}
-              style={globalStyles.detailsImage}
-            />
-          </View>
-        </Swiper>
+        )}
         <View style={globalStyles.content}>
           <View style={styles.header}>
             <View>

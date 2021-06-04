@@ -9,98 +9,34 @@ import {
 } from 'models/types';
 import { Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-
-const db: GlobalState = {
-  quests: {
-    '0': {
-      title: 'Квест 1',
-      address: 'Улица Пушкина, дом Колотушкина',
-      info: 'yoooo',
-      latlng: [59.954353, 30.322607],
-      completed: false,
-      imageUrl:
-        'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
-      tasks: [
-        {
-          info: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-          imageUrl:
-            'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
-          type: 'short-answer',
-          answer: 'yo1',
-        },
-        {
-          info: 'lorem ipsуum lorem ipsum lorem ipsum lorem ipsum',
-          imageUrl:
-            'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
-          type: 'short-answer',
-          answer: 'yo2',
-        },
-      ],
-    },
-    '1': {
-      title: 'Квест 2',
-      address: 'Улица Пушкина, дом Колотушкина',
-      info: 'yoooo',
-      latlng: [59.939397, 30.321887],
-      completed: false,
-      imageUrl:
-        'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
-      tasks: [
-        {
-          info: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-          imageUrl:
-            'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
-          type: 'short-answer',
-          answer: 'yo1',
-        },
-        {
-          info: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
-          imageUrl:
-            'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
-          type: 'short-answer',
-          answer: 'yo2',
-        },
-      ],
-    },
-  },
-  landmarks: {
-    '0': {
-      name: 'Случайная точка 1',
-      latlng: [59.962453, 30.322507],
-      visited: false,
-      imageUrl:
-        'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
-    },
-    '1': {
-      name: 'Случайная точка 2',
-      latlng: [59.922697, 30.321387],
-      visited: false,
-      imageUrl:
-        'https://visit-petersburg.ru/media/uploads/tourobject/196476/196476_cover.png.1050x700_q95_crop_upscale.png',
-    },
-  },
-  fog: [
-    [59.954453, 30.322507],
-    [59.939697, 30.321387],
-    [59.954353, 30.322607],
-    [59.939397, 30.321887],
-  ],
-};
+import SplashScreen from 'react-native-splash-screen';
+import { getAll } from 'api/storage-service';
+import Loading from 'navigation/Loading';
 
 export const StorageContext = createContext<StorageCtx>({
-  state: db,
+  state: {},
   dispatch: () => {},
 });
 
 const reducer = (state: GlobalState, action: Action) => {
+  const payload = action.payload;
   switch (action.type) {
+    case ActionType.INITIAL:
+      const { fog, quests, landmarkGroups, landmarks } = payload;
+      return {
+        ...state,
+        fog,
+        quests,
+        landmarkGroups,
+        landmarks,
+      };
     case ActionType.UPDATE_FOG:
       return {
         ...state,
-        fog: [...state.fog, action.payload] as LatLng[],
+        fog: [...state.fog, payload] as LatLng[],
       };
     case ActionType.VISIT_LANDMARK:
-      const id = action.payload as string;
+      const id = payload as string;
       return {
         ...state,
         landmarks: {
@@ -115,14 +51,23 @@ const reducer = (state: GlobalState, action: Action) => {
 };
 
 export const StorageProvider = ({ children }: ChildProps) => {
-  const [state, dispatch] = useReducer(reducer, db);
+  const [state, dispatch] = useReducer(reducer, {});
 
   useEffect(() => {
+    getAll('0').then((query) => {
+      dispatch({ type: ActionType.INITIAL, payload: query });
+    });
     if (Platform.OS === 'ios') {
       Geolocation.requestAuthorization('always');
     }
   }, []);
 
+  if (!(state.quests && state.landmarkGroups && state.fog)) {
+    console.log('проверка', state);
+    return <Loading />;
+  }
+  console.log('проверка', state);
+  SplashScreen.hide();
   return (
     <StorageContext.Provider
       value={{

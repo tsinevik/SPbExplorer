@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Container, Content, H1, Icon, Text } from 'native-base';
 import Swiper from 'react-native-swiper';
 import { Image, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import TextIcon from 'components/TextIcon';
 import { globalStyles } from 'styles/globalStyles';
+import { StorageContext } from 'navigation/StorageProvider';
 
 const styles = StyleSheet.create({
   header: {
@@ -20,38 +21,33 @@ const styles = StyleSheet.create({
 });
 
 export const QuestDetailsScreen = ({ route }) => {
-  const quest = route.params;
+  const { state } = useContext(StorageContext);
+  const id = route.params.id;
+  const quest = state.quests[id];
   const navigation = useNavigation();
-  const questId = 0;
   return (
     <Container>
       <Content>
-        <Swiper style={globalStyles.swiper}>
-          <View>
-            <Image
-              source={{
-                uri: quest.imageUrl,
-              }}
-              style={globalStyles.detailsImage}
-            />
-          </View>
-          <View>
-            <Image
-              source={{
-                uri: quest.imageUrl,
-              }}
-              style={globalStyles.detailsImage}
-            />
-          </View>
-          <View>
-            <Image
-              source={{
-                uri: quest.imageUrl,
-              }}
-              style={globalStyles.detailsImage}
-            />
-          </View>
-        </Swiper>
+        {quest.hasOwnProperty('imageUrl') && (
+          <Swiper style={globalStyles.swiper}>
+            <View>
+              <Image
+                source={{
+                  uri: quest.imageUrl,
+                }}
+                style={globalStyles.detailsImage}
+              />
+            </View>
+            <View>
+              <Image
+                source={{
+                  uri: quest.imageUrl,
+                }}
+                style={globalStyles.detailsImage}
+              />
+            </View>
+          </Swiper>
+        )}
         <View style={globalStyles.content}>
           <View style={styles.header}>
             <H1 style={globalStyles.detailsHeading}>{quest.title}</H1>
@@ -69,11 +65,11 @@ export const QuestDetailsScreen = ({ route }) => {
               <Button
                 block
                 large
-                style={{ flex: 1, marginRight: 10, }}
+                style={{ flex: 1, marginRight: 10 }}
                 onPress={() =>
                   navigation.navigate('Modal', {
                     screen: 'Play',
-                    params: { questId },
+                    params: { id },
                   })
                 }>
                 <Text>Начать</Text>

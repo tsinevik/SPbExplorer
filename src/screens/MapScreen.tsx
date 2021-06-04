@@ -3,7 +3,11 @@ import { useContext, useEffect, useRef } from 'react';
 import { WebView } from 'react-native-webview';
 import Geolocation from 'react-native-geolocation-service';
 import { StorageContext } from 'navigation/StorageProvider';
-import { isPointVisited } from 'api/storage-service';
+import {
+  distanceBetweenPoints,
+  isPointVisited,
+  toLatLng,
+} from 'api/geo-service';
 import { Action, ActionType, LatLng } from 'models/types';
 import { Platform } from 'react-native';
 
@@ -14,8 +18,7 @@ export const MapScreen = ({ navigation }) => {
   useEffect(() => {
     const watchId = Geolocation.watchPosition(
       (position) => {
-        const { latitude, longitude } = position.coords;
-        const coords: LatLng = [+latitude.toFixed(6), +longitude.toFixed(6)];
+        const coords = toLatLng(position);
         if (!isPointVisited(state.fog, coords)) {
           const action = createMessage(ActionType.UPDATE_FOG, coords);
           dispatch(action);
@@ -50,24 +53,30 @@ export const MapScreen = ({ navigation }) => {
   };
 
   const handleMessage = (message: Action) => {
-    const payload = message.payload as string;
-    console.log(message);
+    const payload = message.payload;
     switch (message.type) {
       case ActionType.OPEN_QUEST:
-        const questData = state.quests[payload];
-        navigation.navigate('Quests', { screen: 'Details', params: questData });
+        navigation.navigate('Quests', {
+          screen: 'Details',
+          params: payload,
+        });
         break;
       case ActionType.OPEN_LANDMARK:
-        const landmarkData = state.landmarks[payload];
         navigation.navigate('Landmarks', {
           screen: 'Details',
-          params: landmarkData,
+          params: payload,
         });
         break;
       case ActionType.VISIT_LANDMARK:
-        const action = createMessage(ActionType.VISIT_LANDMARK, payload);
-        dispatch(action);
-        sendMessage(action);
+        const { id, latlng } = payload;
+        Geolocation.getCurrentPosition((position) => {
+          const currentPosition = toLatLng(position);
+          if (distanceBetweenPoints(currentPosition, latlng) < 50) {
+            const action = createMessage(ActionType.VISIT_LANDMARK, id);
+            dispatch(action);
+            sendMessage(action);
+          }
+        });
         break;
       default:
         console.log('yooo');
@@ -98,8 +107,8 @@ export const MapScreen = ({ navigation }) => {
       // allowFileAccess={true}
       onLoadEnd={() => sendMessage(createMessage(ActionType.INITIAL, state))}
       onMessage={(event) => handleMessage(JSON.parse(event.nativeEvent.data))}
-      // source={{ uri: 'http://192.168.1.127:3000' }}
-      source={{ uri: 'http://192.168.3.9:3000' }}
+      source={{ uri: 'http://192.168.1.127:3000' }}
+      // source={{ uri: 'http://192.168.3.9:3000' }}
       // source={{ uri: 'https://spbexplorer-5efb8.web.app' }}
     />
   );
