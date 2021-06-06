@@ -53,10 +53,12 @@ export const SettingsScreen = ({ navigation, route }) => {
       width: 300,
       height: 300,
       cropping: true,
-    }).then((img) => {
-      setTimeout(() => null);
-      setImage(img.path);
-    });
+    })
+      .then((img) => {
+        setTimeout(() => null);
+        setImage(img.path);
+      })
+      .catch(() => console.log('user stopped choosing image'));
   };
 
   return (
@@ -72,7 +74,7 @@ export const SettingsScreen = ({ navigation, route }) => {
         <View style={styles.content}>
           <UserAvatar
             size={170}
-            name={user.name}
+            name={user.username}
             src={image}
             style={styles.center}
           />
@@ -81,7 +83,7 @@ export const SettingsScreen = ({ navigation, route }) => {
           </Button>
           <Item stackedLabel>
             <Label>Имя пользователя</Label>
-            <Input defaultValue={user.name} style={globalStyles.input} />
+            <Input defaultValue={user.username} style={globalStyles.input} />
           </Item>
           <Item stackedLabel>
             <Label>Электронная почта</Label>
@@ -89,7 +91,12 @@ export const SettingsScreen = ({ navigation, route }) => {
           </Item>
           <Item stackedLabel>
             <Label>Пароль</Label>
-            <Input defaultValue={user.password} style={globalStyles.input} />
+            <Input
+              secureTextEntry
+              defaultValue="random-password"
+              disabled
+              style={globalStyles.input}
+            />
           </Item>
           <Button onPress={logout} large block style={styles.logout}>
             <Text>Выйти</Text>

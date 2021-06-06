@@ -18,6 +18,8 @@ import { StyleSheet } from 'react-native';
 import { typography } from 'styles/typography';
 import { globalStyles } from 'styles/globalStyles';
 import Statistic from 'components/Statistic';
+import { useContext } from 'react';
+import { StorageContext } from 'navigation/StorageProvider';
 
 const styles = StyleSheet.create({
   progress: {
@@ -64,7 +66,10 @@ const styles = StyleSheet.create({
 });
 
 export const ProfileScreen = ({ navigation }) => {
-  const user = {
+  const {
+    state: { user },
+  } = useContext(StorageContext);
+  const userInfo = {
     name: 'Roman Tsinevich',
     imageUrl: '',
     level: 5,
@@ -79,6 +84,11 @@ export const ProfileScreen = ({ navigation }) => {
     { name: 'Виктор Тимохов', imageUrl: '' },
   ];
 
+  const level =
+    1 + Math.floor((Math.sqrt(625 + 100 * user.experience) - 25) / 50);
+  const nextLevelExperience = 25 * (level + 1) * (1 + (level + 1));
+  const levelProgress = user.experience / nextLevelExperience;
+
   return (
     <Container>
       <Content>
@@ -90,15 +100,15 @@ export const ProfileScreen = ({ navigation }) => {
           <Icon type="FontAwesome5" name="cog" style={styles.cogIcon} />
         </Button>
         <View style={styles.mainInfo}>
-          <UserAvatar size={170} name={user.name} src={user.imageUrl} />
-          <H1 style={styles.name}>{user.name}</H1>
+          <UserAvatar size={170} name={user.username} src={user.imageUrl} />
+          <H1 style={styles.name}>{user.username}</H1>
           <H1 style={globalStyles.detailsHeading}>Уровень</H1>
           <Progress.Circle
             size={120}
-            progress={0.5}
+            progress={levelProgress}
             thickness={5}
             showsText={true}
-            formatText={() => user.level}
+            formatText={() => level}
             color={colors.progress}
             unfilledColor={colors.gray}
             borderColor={'rgba(0,0,0,0)'}
@@ -112,15 +122,18 @@ export const ProfileScreen = ({ navigation }) => {
             <View style={[styles.statGrid, styles.cardItem]}>
               <Statistic
                 label="Пройдено квестов"
-                value={user.completedQuests}
+                value={userInfo.completedQuests}
               />
               <Statistic label="Всего опыта" value={user.experience} />
             </View>
             <View style={styles.statGrid}>
-              <Statistic label="Посещено мест" value={user.visitedLandmarks} />
+              <Statistic
+                label="Посещено мест"
+                value={userInfo.visitedLandmarks}
+              />
               <Statistic
                 label="% изученности города"
-                value={user.cityKnowledge}
+                value={userInfo.cityKnowledge}
               />
             </View>
           </Card>
