@@ -1,11 +1,18 @@
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Landmark } from 'models/types';
+import auth from '@react-native-firebase/auth';
 
-export const getAll = async (userId: string) => {
+// Read methods
+
+export const getAll = async () => {
   try {
+    console.log('start downloading...');
+    const user = await getCurrentUser();
+    const { visitedLandmarks, completedQuests } = await getUserProgress(
+      user.id,
+    );
     const fog = await getFog();
-    console.log(fog);
     const queryQuests = await getQuests();
     const quests: { [key: string]: Landmark } = {};
     for (const quest of queryQuests) {
@@ -13,6 +20,7 @@ export const getAll = async (userId: string) => {
         ...quest,
         id: quest.id,
         latlng: [quest.latlng.latitude, quest.latlng.longitude],
+        isCompleted: completedQuests.includes(quest.id),
       };
     }
     const landmarkGroups = await getLandmarkGroups();
@@ -25,12 +33,13 @@ export const getAll = async (userId: string) => {
           id: landmark.id,
           groupId: group.id,
           latlng: [landmark.latlng.latitude, landmark.latlng.longitude],
+          isVisited: visitedLandmarks.includes(landmark.id),
         };
       }
       landmarkGroups[i] = { ...group, id: group.id };
     }
 
-    return { fog, quests, landmarkGroups, landmarks };
+    return { fog, quests, landmarkGroups, landmarks, user };
   } catch (e) {
     return ['No document exists'];
   }
@@ -39,7 +48,6 @@ export const getAll = async (userId: string) => {
 export const getFog = async () => {
   try {
     const fog = await AsyncStorage.getItem('fog');
-    console.log('туман', fog);
     return fog != null ? JSON.parse(fog) : [];
   } catch (e) {
     throw e;
@@ -58,7 +66,7 @@ export const getQuests = async () => {
   }
 };
 
-export const getQuest = async () => {};
+// export const getQuest = async () => {};
 
 export const getLandmarkGroups = async () => {
   try {
@@ -78,7 +86,7 @@ export const getLandmarks = async (groupId: string) => {
       .collection('landmarkGroups')
       .doc(groupId)
       .collection('landmarks')
-      .limit(2)
+      .limit(3)
       .get();
     return landmarks.docs.map((landmark) => ({
       ...landmark.data(),
@@ -89,6 +97,64 @@ export const getLandmarks = async (groupId: string) => {
   }
 };
 
-export const getLandmark = async () => {};
+// export const getLandmark = async () => {};
 
-export const getUser = async () => {};
+const getCurrentUser = async () => {
+  try {
+    const userId = await auth().currentUser?.uid;
+    const user = await firestore().collection('users').doc(userId).get();
+    return {
+      ...user.data(),
+      id: userId,
+    };
+  } catch (e) {
+    return ['No document exists'];
+  }
+};
+
+const getUserProgress = async (userId: string) => {
+  try {
+    const userRef = firestore().collection('users').doc(userId);
+    const userLandmarks = await userRef.collection('visitedLandmarks').get();
+    const userQuests = await userRef.collection('completedQuests').get();
+    const visitedLandmarks = userLandmarks.docs.map((landmark) => landmark.id);
+    const completedQuests = userQuests.docs.map((quest) => quest.id);
+    return {
+      visitedLandmarks,
+      completedQuests,
+    };
+  } catch (e) {
+    return ['No document exists'];
+  }
+};
+
+// Write methods
+
+export const updateVisitedLandmarks = async (
+  landmarkId: string,
+  userId: string,
+) => {
+  try {
+    await firestore()
+      .collection('users')
+      .doc(userId)
+      .collection('visitedLandmarks')
+      .doc(landmarkId)
+      .set({});
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const updateUserExperience = async (
+  experience: number,
+  userId: string,
+) => {
+  try {
+    await firestore().collection('users').doc(userId).update({
+      experience,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};

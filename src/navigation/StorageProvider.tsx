@@ -10,7 +10,11 @@ import {
 import { Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import SplashScreen from 'react-native-splash-screen';
-import { getAll } from 'api/storage-service';
+import {
+  getAll,
+  updateUserExperience,
+  updateVisitedLandmarks
+} from 'api/storage-service';
 import Loading from 'navigation/Loading';
 
 export const StorageContext = createContext<StorageCtx>({
@@ -22,13 +26,14 @@ const reducer = (state: GlobalState, action: Action) => {
   const payload = action.payload;
   switch (action.type) {
     case ActionType.INITIAL:
-      const { fog, quests, landmarkGroups, landmarks } = payload;
+      const { fog, quests, landmarkGroups, landmarks, user } = payload;
       return {
         ...state,
         fog,
         quests,
         landmarkGroups,
         landmarks,
+        user,
       };
     case ActionType.UPDATE_FOG:
       return {
@@ -37,11 +42,19 @@ const reducer = (state: GlobalState, action: Action) => {
       };
     case ActionType.VISIT_LANDMARK:
       const id = payload as string;
+      const newExperience = state.user.experience + 100;
+      const userId = state.user.id;
+      updateVisitedLandmarks(id, userId);
+      updateUserExperience(newExperience, userId);
       return {
         ...state,
+        user: {
+          ...state.user,
+          experience: newExperience,
+        },
         landmarks: {
           ...state.landmarks,
-          [id]: { ...state.landmarks[id], visited: true },
+          [id]: { ...state.landmarks[id], isVisited: true },
         },
       };
     default:
@@ -54,7 +67,7 @@ export const StorageProvider = ({ children }: ChildProps) => {
   const [state, dispatch] = useReducer(reducer, {});
 
   useEffect(() => {
-    getAll('0').then((query) => {
+    getAll().then((query) => {
       dispatch({ type: ActionType.INITIAL, payload: query });
     });
     if (Platform.OS === 'ios') {
@@ -63,10 +76,10 @@ export const StorageProvider = ({ children }: ChildProps) => {
   }, []);
 
   if (!(state.quests && state.landmarkGroups && state.fog)) {
-    console.log('проверка', state);
+    console.log('state check', state);
     return <Loading />;
   }
-  console.log('проверка', state);
+  console.log('state check', state);
   SplashScreen.hide();
   return (
     <StorageContext.Provider

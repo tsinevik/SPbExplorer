@@ -12,6 +12,17 @@ export interface GlobalState {
   landmarkGroups: { [key: string]: LandmarkGroup };
   landmarks: { [key: string]: Landmark };
   fog: LatLng[];
+  user: User;
+}
+
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  experience: number;
+  imageUrl?: string;
+  visitedLandmarks: string[];
+  completedQuests: string[];
 }
 
 export interface Quest {
@@ -21,10 +32,10 @@ export interface Quest {
   latlng: LatLng;
   description: string;
   imageUrl: string;
-  completed: boolean;
+  isCompleted: boolean;
   duration: number;
   length: number;
-  exp: number;
+  experience: number;
   tasks: Task[];
 }
 
@@ -44,7 +55,7 @@ export interface Landmark {
   name: string;
   address: string;
   latlng: LatLng;
-  visited: boolean;
+  isVisited: boolean;
   description?: string;
   imageUrl?: string;
 }
