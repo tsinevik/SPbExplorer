@@ -1,10 +1,11 @@
-import React from 'react';
-import { CardItem, H2, Text} from 'native-base';
+import React, { useContext } from 'react';
+import { CardItem, H2, Text } from 'native-base';
 import BigCard from 'components/BigCard';
 import { LandmarkGroup } from 'models/types';
 import { StyleSheet } from 'react-native';
 import { colors } from 'styles/colors';
 import { typography } from 'styles/typography';
+import { StorageContext } from 'navigation/StorageProvider';
 
 const styles = StyleSheet.create({
   swiper: {
@@ -29,8 +30,15 @@ const styles = StyleSheet.create({
 });
 
 export const LandmarkGroupCard = (props: LandmarkGroup) => {
-  const visited = 55;
-  const completePercentage = Math.floor((visited * 100) / props.total);
+  const {
+    state: { landmarks },
+  } = useContext(StorageContext);
+  const groupLandmarks = Object.keys(landmarks).filter(
+    (id) => landmarks[id].groupId === props.id,
+  );
+  const total = groupLandmarks.length;
+  const visited = groupLandmarks.filter((id) => landmarks[id].isVisited).length;
+  const completePercentage = Math.floor((visited * 100) / total);
   const cardInfo = { id: props.id, name: props.name, imageUrl: props.imageUrl };
   return (
     <BigCard route="Landmarks" cardInfo={cardInfo}>
@@ -40,7 +48,7 @@ export const LandmarkGroupCard = (props: LandmarkGroup) => {
       <CardItem style={styles.swiper}>
         <Text style={styles.percentage}>{completePercentage}%</Text>
         <Text style={styles.info}>
-          Вы посетили {visited} из {props.total} достопримечательностей
+          Вы посетили {visited} из {total} достопримечательностей
         </Text>
       </CardItem>
     </BigCard>

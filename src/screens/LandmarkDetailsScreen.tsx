@@ -11,6 +11,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 40,
   },
+  showMap: {
+    width: 60,
+    justifyContent: 'center',
+  },
+  showIcon: {
+    fontSize: 28,
+  },
+  title: {
+    flexShrink: 1,
+  },
 });
 
 export const LandmarkDetailsScreen = ({ route }) => {
@@ -32,12 +42,16 @@ export const LandmarkDetailsScreen = ({ route }) => {
         )}
         <View style={globalStyles.content}>
           <View style={styles.header}>
-            <View>
+            <View style={styles.title}>
               <H1 style={globalStyles.detailsHeading}>{landmark.name}</H1>
               <TextIcon iconName={'map-marker-alt'} text={landmark.address} />
             </View>
-            <Button bordered large>
-              <Icon type="FontAwesome5" name="directions" />
+            <Button bordered large style={styles.showMap}>
+              <Icon
+                type="FontAwesome5"
+                name="map-pin"
+                style={styles.showIcon}
+              />
             </Button>
           </View>
           <H1 style={globalStyles.detailsHeading}>Историческая справка</H1>

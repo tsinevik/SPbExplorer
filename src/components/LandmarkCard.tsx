@@ -1,43 +1,49 @@
 import React from 'react';
-import {
-  Button,
-  Card,
-  CardItem,
-  H2,
-  Icon,
-  Left,
-  Right,
-  Text,
-  View,
-} from 'native-base';
+import { Card, CardItem, H2, Icon, View } from 'native-base';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import TextIcon from 'components/TextIcon';
+import { Landmark } from 'models/types';
 
 const styles = StyleSheet.create({
-  swiper: {
+  wrapper: {
     justifyContent: 'space-between',
   },
   gap: {
     marginBottom: 10,
   },
+  iconWrapper: {
+    height: 60,
+    width: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  icon: {
+    fontSize: 48,
+    color: '#558b6c',
+  },
+  title: {
+    flexShrink: 1,
+  },
 });
 
-export const LandmarkCard = (props) => {
+export const LandmarkCard = (props: Landmark) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
       activeOpacity={0.6}
       onPress={() => navigation.navigate('Details', props)}>
       <Card>
-        <CardItem style={styles.swiper}>
-          <View>
+        <CardItem style={styles.wrapper}>
+          <View style={styles.title}>
             <H2 style={styles.gap}>{props.name}</H2>
             <TextIcon iconName={'map-marker-alt'} text={props.address} small />
           </View>
-          <Button bordered large>
-            <Icon type="FontAwesome5" name="directions" />
-          </Button>
+          {props.isVisited && (
+            <View style={styles.iconWrapper}>
+              <Icon type="FontAwesome5" name="check" style={styles.icon} />
+            </View>
+          )}
         </CardItem>
       </Card>
     </TouchableOpacity>
