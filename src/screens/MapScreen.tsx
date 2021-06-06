@@ -69,17 +69,25 @@ export const MapScreen = ({ navigation }) => {
         break;
       case ActionType.VISIT_LANDMARK:
         const { id, latlng } = payload;
-        Geolocation.getCurrentPosition((position) => {
-          const currentPosition = toLatLng(position);
-          if (distanceBetweenPoints(currentPosition, latlng) < 50) {
-            const action = createMessage(ActionType.VISIT_LANDMARK, id);
-            dispatch(action);
-            sendMessage(action);
-          }
-        });
+        console.log('yoooo');
+        Geolocation.getCurrentPosition(
+          (position) => {
+            const currentPosition = toLatLng(position);
+            if (distanceBetweenPoints(currentPosition, latlng) < 50) {
+              const action = createMessage(ActionType.VISIT_LANDMARK, id);
+              dispatch(action);
+              sendMessage(action);
+            }
+          },
+          (error) => {
+            // See error code charts below.
+            console.log(error.code, error.message);
+          },
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
+        );
         break;
       default:
-        console.log('yooo');
+        console.log('error');
         throw Error('WRONG MESSAGE TYPE');
     }
   };
