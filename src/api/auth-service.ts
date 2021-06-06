@@ -9,14 +9,34 @@ export const login = async (email: string, password: string) => {
   }
 };
 
-export const register = async (email: string, password: string) => {
+export const register = async (
+  email: string,
+  password: string,
+  username: string,
+) => {
   try {
     const credential = await auth().createUserWithEmailAndPassword(
       email,
       password,
     );
-    //todo should set default info for user
-    await firestore().collection('users').doc(credential.user.uid).set({});
+    const userData = {
+      username,
+      email,
+      experience: 0,
+      imageUrl: '',
+    };
+    await firestore()
+      .collection('users')
+      .doc(credential.user.uid)
+      .set(userData);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const reset = async (email: string) => {
+  try {
+    await auth().sendPasswordResetEmail(email);
   } catch (e) {
     console.log(e);
   }

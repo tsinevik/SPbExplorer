@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { login, logout, register } from 'api/auth-service';
+import { login, logout, register, reset } from 'api/auth-service';
 
 export const AuthContext = createContext({});
 
@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
         setUser,
         login,
         register,
+        reset,
         logout,
       }}>
       {children}

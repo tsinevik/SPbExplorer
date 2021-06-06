@@ -54,6 +54,7 @@ const SignInScreen = ({ navigation }: SignInT) => {
         <Item stackedLabel>
           <Label>Электронная почта</Label>
           <Input
+            keyboardType={'email-address'}
             placeholder="example@email.ru"
             style={globalStyles.input}
             onChangeText={setEmail}
@@ -68,7 +69,9 @@ const SignInScreen = ({ navigation }: SignInT) => {
             onChangeText={setPassword}
           />
         </Item>
-        <Text style={styles.forgot} onPress={() => navigation.navigate('FORGOT')}>
+        <Text
+          style={styles.forgot}
+          onPress={() => navigation.navigate('FORGOT')}>
           Забыли пароль?
         </Text>
         <Button
