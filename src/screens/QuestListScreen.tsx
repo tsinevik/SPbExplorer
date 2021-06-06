@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { Container, Content } from 'native-base';
 import QuestCard from 'components/QuestCard';
-import { useEffect, useState } from 'react';
-import { getQuests } from 'api/storage-service';
-import { useTheme } from '@react-navigation/native';
-import { Quest } from 'models/types';
+import { useContext } from 'react';
+import { StorageContext } from 'navigation/StorageProvider';
 
 // type ProfileScreenNavigationProp = BottomTabNavigationProp<
 //   RootStackParamList,
@@ -16,18 +14,15 @@ import { Quest } from 'models/types';
 // };
 
 export const QuestListScreen = ({ navigation }) => {
-  const [quests, setQuests] = useState<Quest[]>([]);
-  useEffect(() => {
-    getQuests().then((queryQuests) => {
-      setQuests(queryQuests as Quest[]);
-    });
-  }, []);
+  const {
+    state: { quests },
+  } = useContext(StorageContext);
 
   return (
     <Container>
       <Content>
-        {quests.map((quest) => (
-          <QuestCard key={quest.id} {...quest} />
+        {Object.keys(quests).map((id) => (
+          <QuestCard key={id} {...quests[id]} />
         ))}
       </Content>
     </Container>

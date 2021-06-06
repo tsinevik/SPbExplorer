@@ -2,8 +2,9 @@ import React from 'react';
 import { CardItem, H1 } from 'native-base';
 import BigCard from 'components/BigCard';
 import TextIcon from 'components/TextIcon';
+import { Quest } from 'models/types';
 
-const QuestCard = (props) => {
+const QuestCard = (props: Quest) => {
   return (
     <BigCard route="Details" cardInfo={props}>
       <CardItem>
@@ -20,7 +21,7 @@ const QuestCard = (props) => {
           rotate
           small
         />
-        <TextIcon iconName="graduation-cap" text={props.exp} small />
+        <TextIcon iconName="graduation-cap" text={props.experience} small />
       </CardItem>
     </BigCard>
   );

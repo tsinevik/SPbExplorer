@@ -18,6 +18,13 @@ const styles = StyleSheet.create({
   buttons: {
     ...globalStyles.flexRow,
   },
+  showMap: {
+    width: 60,
+    justifyContent: 'center',
+  },
+  showIcon: {
+    fontSize: 28,
+  },
 });
 
 export const QuestDetailsScreen = ({ route }) => {
@@ -59,7 +66,7 @@ export const QuestDetailsScreen = ({ route }) => {
                 text={`${quest.length} км`}
                 rotate
               />
-              <TextIcon iconName="graduation-cap" text={quest.exp} />
+              <TextIcon iconName="graduation-cap" text={quest.experience} />
             </View>
             <View style={globalStyles.flexRow}>
               <Button
@@ -74,8 +81,12 @@ export const QuestDetailsScreen = ({ route }) => {
                 }>
                 <Text>Начать</Text>
               </Button>
-              <Button bordered large>
-                <Icon type="FontAwesome5" name="directions" />
+              <Button bordered large style={styles.showMap}>
+                <Icon
+                  type="FontAwesome5"
+                  name="map-pin"
+                  style={styles.showIcon}
+                />
               </Button>
             </View>
           </View>
