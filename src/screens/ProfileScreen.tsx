@@ -67,18 +67,11 @@ const styles = StyleSheet.create({
 
 export const ProfileScreen = ({ navigation }) => {
   const {
-    state: { user },
+    state: { user, landmarks, quests },
   } = useContext(StorageContext);
   const userInfo = {
-    name: 'Roman Tsinevich',
-    imageUrl: '',
-    level: 5,
-    completedQuests: 3,
-    experience: 1300,
-    visitedLandmarks: 6,
     cityKnowledge: 43,
   };
-
   const friends = [
     { name: 'Наталья Янковская', imageUrl: '' },
     { name: 'Виктор Тимохов', imageUrl: '' },
@@ -88,6 +81,12 @@ export const ProfileScreen = ({ navigation }) => {
     1 + Math.floor((Math.sqrt(625 + 100 * user.experience) - 25) / 50);
   const nextLevelExperience = 25 * (level + 1) * (1 + (level + 1));
   const levelProgress = user.experience / nextLevelExperience;
+  const visitedLandmarks = Object.keys(landmarks).filter(
+    (id) => landmarks[id].isVisited,
+  ).length;
+  const completedQuests = Object.keys(quests).filter(
+    (id) => quests[id].isCompleted,
+  ).length;
 
   return (
     <Container>
@@ -120,20 +119,16 @@ export const ProfileScreen = ({ navigation }) => {
           <H1 style={styles.cardTitle}>Статистика</H1>
           <Card style={styles.card}>
             <View style={[styles.statGrid, styles.cardItem]}>
-              <Statistic
-                label="Пройдено квестов"
-                value={userInfo.completedQuests}
-              />
+              <Statistic label="Пройдено квестов" value={completedQuests} />
               <Statistic label="Всего опыта" value={user.experience} />
             </View>
             <View style={styles.statGrid}>
-              <Statistic
-                label="Посещено мест"
-                value={userInfo.visitedLandmarks}
-              />
+              <Statistic label="Посещено мест" value={visitedLandmarks} />
               <Statistic
                 label="% изученности города"
-                value={userInfo.cityKnowledge}
+                value={Math.floor(
+                  (visitedLandmarks * 100) / Object.keys(landmarks).length,
+                )}
               />
             </View>
           </Card>

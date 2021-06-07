@@ -15,6 +15,8 @@ import UserAvatar from 'react-native-user-avatar';
 import ImagePicker from 'react-native-image-crop-picker';
 import { StyleSheet } from 'react-native';
 import { globalStyles } from 'styles/globalStyles';
+import { StorageContext } from 'navigation/StorageProvider';
+import { ActionType } from 'models/types';
 
 const styles = StyleSheet.create({
   save: {
@@ -45,8 +47,13 @@ const styles = StyleSheet.create({
 
 export const SettingsScreen = ({ navigation, route }) => {
   const { logout } = useContext(AuthContext);
-  const user = route.params.user;
+  const {
+    state: { user },
+    dispatch,
+  } = useContext(StorageContext);
   const [image, setImage] = useState(user.imageUrl);
+  const [username, setUsername] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
 
   const choosePhoto = () => {
     ImagePicker.openPicker({
@@ -61,14 +68,15 @@ export const SettingsScreen = ({ navigation, route }) => {
       .catch(() => console.log('user stopped choosing image'));
   };
 
+  const onSave = () => {
+    dispatch({ type: ActionType.EDIT_USER, payload: { username, email } });
+    navigation.goBack();
+  };
+
   return (
     <Container>
       <Content>
-        <Button
-          large
-          transparent
-          style={styles.save}
-          onPress={() => navigation.navigate('Settings')}>
+        <Button large transparent style={styles.save} onPress={onSave}>
           <Text>Сохранить</Text>
         </Button>
         <View style={styles.content}>
@@ -83,13 +91,21 @@ export const SettingsScreen = ({ navigation, route }) => {
           </Button>
           <Item stackedLabel>
             <Label>Имя пользователя</Label>
-            <Input defaultValue={user.username} style={globalStyles.input} />
+            <Input
+              value={username}
+              style={globalStyles.input}
+              onChangeText={setUsername}
+            />
           </Item>
           <Item stackedLabel>
             <Label>Электронная почта</Label>
-            <Input defaultValue={user.email} style={globalStyles.input} />
+            <Input
+              value={email}
+              style={globalStyles.input}
+              onChangeText={setEmail}
+            />
           </Item>
-          <Item stackedLabel>
+          <Item stackedLabel onPress={() => navigation.navigate('Password')}>
             <Label>Пароль</Label>
             <Input
               secureTextEntry

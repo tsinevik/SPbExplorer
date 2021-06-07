@@ -1,6 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Landmark } from 'models/types';
+import { Landmark, LatLng } from 'models/types';
 import auth from '@react-native-firebase/auth';
 
 // Read methods
@@ -13,6 +13,7 @@ export const getAll = async () => {
       user.id,
     );
     const fog = await getFog();
+    console.log(fog);
     const queryQuests = await getQuests();
     const quests: { [key: string]: Landmark } = {};
     for (const quest of queryQuests) {
@@ -60,6 +61,22 @@ export const getQuests = async () => {
     return questList.docs.map((quest) => ({
       ...quest.data(),
       id: quest.id,
+    }));
+  } catch (e) {
+    return ['No document exists'];
+  }
+};
+
+export const getTasks = async (questId: string) => {
+  try {
+    const tasks = await firestore()
+      .collection('quests')
+      .doc(questId)
+      .collection('tasks')
+      .get();
+    return tasks.docs.map((task) => ({
+      ...task.data(),
+      order: task.id,
     }));
   } catch (e) {
     return ['No document exists'];
@@ -146,6 +163,22 @@ export const updateVisitedLandmarks = async (
   }
 };
 
+export const updateCompletedQuests = async (
+  questId: string,
+  userId: string,
+) => {
+  try {
+    await firestore()
+      .collection('users')
+      .doc(userId)
+      .collection('completedQuests')
+      .doc(questId)
+      .set({});
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const updateUserExperience = async (
   experience: number,
   userId: string,
@@ -156,5 +189,29 @@ export const updateUserExperience = async (
     });
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const updateFog = async (fog: LatLng[]) => {
+  try {
+    const stringFog = JSON.stringify(fog);
+    await AsyncStorage.setItem('fog', stringFog);
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const updateUser = async (
+  userId: string,
+  { username, email }: { username: string; email: string },
+) => {
+  try {
+    await firestore()
+      .collection('users')
+      .doc(userId)
+      .update({ username, email });
+    await auth().currentUser?.updateEmail(email);
+  } catch (e) {
+    throw e;
   }
 };

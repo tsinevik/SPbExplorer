@@ -73,6 +73,8 @@ export enum ActionType {
   OPEN_QUEST = 'OPEN_QUEST',
   OPEN_LANDMARK = 'OPEN_LANDMARK',
   VISIT_LANDMARK = 'VISIT_LANDMARK',
+  COMPLETE_QUEST = 'COMPLETE_QUEST',
+  EDIT_USER = 'EDIT_USER',
 }
 
 export type StorageCtx = {
