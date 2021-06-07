@@ -2,7 +2,7 @@ import { LatLng } from 'models/types';
 import { GeoPosition } from 'react-native-geolocation-service';
 
 export const isPointVisited = (fog: LatLng[], point: LatLng) => {
-  const radius = 25;
+  const radius = 50;
   return fog.some((fogPoint) => {
     return distanceBetweenPoints(fogPoint, point) < radius;
   });
