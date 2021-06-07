@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Container,
@@ -13,9 +13,8 @@ import {
   Right,
   Left,
 } from 'native-base';
-import { Image, KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { Alert, Image, KeyboardAvoidingView, StyleSheet } from 'react-native';
 import * as Progress from 'react-native-progress';
-import { StorageContext } from 'navigation/StorageProvider';
 import { globalStyles } from 'styles/globalStyles';
 import { colors } from 'styles/colors';
 
@@ -47,20 +46,46 @@ const styles = StyleSheet.create({
   progress: {
     alignSelf: 'stretch',
   },
+  description: {
+    alignSelf: 'stretch',
+  },
+  incorrect: {
+    borderColor: 'red',
+  },
 });
 
 export const PlayQuestScreen = ({ navigation, route }) => {
-  const { state } = useContext(StorageContext);
-  const { questId } = route.params;
-  let tasks = state.quests[questId].tasks;
+  const { tasks, id } = route.params;
+  const [order, setOrder] = useState(0);
+  const [answer, setAnswer] = useState('');
+  const [incorrect, setIncorrect] = useState(false);
 
-  const isLastTask = (): boolean => tasks.length === 0;
+  const isLastTask = (): boolean => tasks.length === order + 1;
 
-  const _onPress = () => {
-    tasks = tasks.slice(1);
-    if (isLastTask()) {
-      navigation.navigate('Results');
+  const onAnswer = () => {
+    const parsedAnswer = answer.trim().toLowerCase();
+    if (parsedAnswer === tasks[order].answer) {
+      if (isLastTask()) {
+        navigation.navigate('Results', { id });
+      } else {
+        setIncorrect(false);
+        setOrder(order + 1);
+        setAnswer('');
+      }
+    } else {
+      setIncorrect(true);
     }
+  };
+
+  const onClose = () => {
+    Alert.alert('Внимание!', 'Вы точно хотите прервать квест?', [
+      {
+        text: 'Отмена',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      { text: 'Да', onPress: () => navigation.navigate('Quests') },
+    ]);
   };
 
   return (
@@ -72,18 +97,18 @@ export const PlayQuestScreen = ({ navigation, route }) => {
             borderColor={colors.fontPrimary}
             borderWidth={1.3}
             color={colors.progress}
-            progress={0.8}
+            progress={(order + 1) / tasks.length}
             height={20}
             width={null}
             style={styles.progress}
             borderRadius={15}>
             <Text style={globalStyles.progressBar}>
-              {tasks.length} / {tasks.length + 5}
+              {order + 1} / {tasks.length}
             </Text>
           </Progress.Bar>
         </Body>
         <Right style={styles.headerSide}>
-          <Button large transparent>
+          <Button large transparent onPress={onClose}>
             <Icon type="FontAwesome5" name="times" style={styles.headerIcon} />
           </Button>
         </Right>
@@ -91,26 +116,22 @@ export const PlayQuestScreen = ({ navigation, route }) => {
       <Content>
         <Image
           source={{
-            uri: tasks[0].imageUrl,
+            uri: tasks[order].imageUrl,
           }}
           style={globalStyles.detailsImage}
         />
         <KeyboardAvoidingView style={styles.content}>
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </Text>
-          {/*<Text>{tasks[0].description}</Text>*/}
+          <Text style={styles.description}>{tasks[order].description}</Text>
           <H1 style={styles.label}>Ваш ответ</H1>
           <Item>
-            <Input />
+            <Input
+              style={incorrect ? styles.incorrect : []}
+              value={answer}
+              onChangeText={setAnswer}
+              onSubmitEditing={onAnswer}
+            />
           </Item>
-          <Button large block onPress={_onPress} style={styles.button}>
+          <Button large block onPress={onAnswer} style={styles.button}>
             <Text>Ответить</Text>
           </Button>
         </KeyboardAvoidingView>

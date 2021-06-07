@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import TextIcon from 'components/TextIcon';
 import { globalStyles } from 'styles/globalStyles';
 import { StorageContext } from 'navigation/StorageProvider';
+import { getTasks } from 'api/storage-service';
 
 const styles = StyleSheet.create({
   header: {
@@ -32,6 +33,15 @@ export const QuestDetailsScreen = ({ route }) => {
   const id = route.params.id;
   const quest = state.quests[id];
   const navigation = useNavigation();
+
+  const handlePlay = async (questId: string) => {
+    const tasks = await getTasks(questId);
+    navigation.navigate('Modal', {
+      screen: 'Play',
+      params: { tasks, id },
+    });
+  };
+
   return (
     <Container>
       <Content>
@@ -73,12 +83,7 @@ export const QuestDetailsScreen = ({ route }) => {
                 block
                 large
                 style={{ flex: 1, marginRight: 10 }}
-                onPress={() =>
-                  navigation.navigate('Modal', {
-                    screen: 'Play',
-                    params: { id },
-                  })
-                }>
+                onPress={() => handlePlay(id)}>
                 <Text>Начать</Text>
               </Button>
               <Button bordered large style={styles.showMap}>
