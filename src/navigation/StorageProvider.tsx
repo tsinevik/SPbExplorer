@@ -87,7 +87,7 @@ const reducer = (state: GlobalState, action: Action) => {
       };
     }
     case ActionType.EDIT_USER: {
-      const { username, email } = payload;
+      const { username, email, image } = payload;
       updateUser(state.user.id, { username, email });
       return {
         ...state,
@@ -95,6 +95,7 @@ const reducer = (state: GlobalState, action: Action) => {
           ...state.user,
           username,
           email,
+          imageUrl: image,
         },
       };
     }

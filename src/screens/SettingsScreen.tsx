@@ -69,7 +69,7 @@ export const SettingsScreen = ({ navigation, route }) => {
   };
 
   const onSave = () => {
-    dispatch({ type: ActionType.EDIT_USER, payload: { username, email } });
+    dispatch({ type: ActionType.EDIT_USER, payload: { username, email, image } });
     navigation.goBack();
   };
 
@@ -100,6 +100,7 @@ export const SettingsScreen = ({ navigation, route }) => {
           <Item stackedLabel>
             <Label>Электронная почта</Label>
             <Input
+              keyboardType={'email-address'}
               value={email}
               style={globalStyles.input}
               onChangeText={setEmail}
