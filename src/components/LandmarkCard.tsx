@@ -12,12 +12,6 @@ const styles = StyleSheet.create({
   gap: {
     marginBottom: 10,
   },
-  iconWrapper: {
-    height: 60,
-    width: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   icon: {
     fontSize: 48,
     color: '#558b6c',
@@ -40,7 +34,7 @@ export const LandmarkCard = (props: Landmark) => {
             <TextIcon iconName={'map-marker-alt'} text={props.address} small />
           </View>
           {props.isVisited && (
-            <View style={styles.iconWrapper}>
+            <View>
               <Icon type="FontAwesome5" name="check" style={styles.icon} />
             </View>
           )}

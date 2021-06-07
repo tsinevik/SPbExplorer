@@ -8,7 +8,7 @@ import {
   isPointVisited,
   toLatLng,
 } from 'api/geo-service';
-import { Action, ActionType, LatLng } from 'models/types';
+import { Action, ActionType } from 'models/types';
 import { Platform } from 'react-native';
 
 export const MapScreen = ({ navigation }) => {

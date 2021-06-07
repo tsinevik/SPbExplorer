@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from 'styles/colors';
+import { typography } from 'styles/typography';
 
 export const globalStyles = StyleSheet.create({
   primaryBackground: {
@@ -34,6 +35,9 @@ export const globalStyles = StyleSheet.create({
   },
   headerTitle: {
     color: colors.bgSecondary,
+  },
+  headerBackButton: {
+    fontFamily: typography.regularFont,
   },
   smallText: {
     fontSize: 16,

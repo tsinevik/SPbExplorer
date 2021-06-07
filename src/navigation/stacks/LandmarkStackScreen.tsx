@@ -4,6 +4,7 @@ import { LandmarkGroupListScreen } from 'screens/LandmarkGroupListScreen';
 import { LandmarkListScreen } from 'screens/LandmarkListScreen';
 import { LandmarkDetailsScreen } from 'screens/LandmarkDetailsScreen';
 import { globalStyles } from 'styles/globalStyles';
+import { colors } from 'styles/colors';
 
 const LandmarkStack = createStackNavigator();
 
@@ -11,6 +12,8 @@ export const LandmarkStackScreen = () => (
   <LandmarkStack.Navigator
     screenOptions={{
       headerTitleStyle: globalStyles.headerTitle,
+      headerBackTitleStyle: globalStyles.headerBackButton,
+      headerTintColor: colors.bgSecondary,
     }}>
     <LandmarkStack.Screen
       name="Groups"
