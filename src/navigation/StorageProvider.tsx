@@ -12,8 +12,11 @@ import Geolocation from 'react-native-geolocation-service';
 import SplashScreen from 'react-native-splash-screen';
 import {
   getAll,
+  updateCompletedQuests,
+  updateFog,
+  updateUser,
   updateUserExperience,
-  updateVisitedLandmarks
+  updateVisitedLandmarks,
 } from 'api/storage-service';
 import Loading from 'navigation/Loading';
 
@@ -35,16 +38,22 @@ const reducer = (state: GlobalState, action: Action) => {
         landmarks,
         user,
       };
-    case ActionType.UPDATE_FOG:
+    case ActionType.UPDATE_FOG: {
+      const newFog = [...state.fog, payload] as LatLng[];
+      const newExperience = state.user.experience + 10;
+      updateFog(newFog);
+      updateUserExperience(newExperience, state.user.id);
       return {
         ...state,
-        fog: [...state.fog, payload] as LatLng[],
+        experience: newExperience,
+        fog: newFog,
       };
-    case ActionType.VISIT_LANDMARK:
-      const id = payload as string;
+    }
+    case ActionType.VISIT_LANDMARK: {
+      const landmarkId = payload as string;
       const newExperience = state.user.experience + 100;
       const userId = state.user.id;
-      updateVisitedLandmarks(id, userId);
+      updateVisitedLandmarks(landmarkId, userId);
       updateUserExperience(newExperience, userId);
       return {
         ...state,
@@ -54,9 +63,41 @@ const reducer = (state: GlobalState, action: Action) => {
         },
         landmarks: {
           ...state.landmarks,
-          [id]: { ...state.landmarks[id], isVisited: true },
+          [landmarkId]: { ...state.landmarks[landmarkId], isVisited: true },
         },
       };
+    }
+    case ActionType.COMPLETE_QUEST: {
+      const questId = payload as string;
+      const newExperience =
+        state.user.experience + state.quests[questId].experience;
+      const userId = state.user.id;
+      updateCompletedQuests(questId, userId);
+      updateUserExperience(newExperience, userId);
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          experience: newExperience,
+        },
+        quests: {
+          ...state.quests,
+          [questId]: { ...state.quests[questId], isCompleted: true },
+        },
+      };
+    }
+    case ActionType.EDIT_USER: {
+      const { username, email } = payload;
+      updateUser(state.user.id, { username, email });
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          username,
+          email,
+        },
+      };
+    }
     default:
       console.log('WRONG ACTION TYPE!');
       return state;
